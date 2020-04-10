@@ -1,0 +1,42 @@
+beat project >> B.E.A.T PI
+Version 1.0 2020/04/04
+
+
+SCRIPT
+run_kinematic_walking	-	Script to compute kinematics PI in walking condition
+run_kinematic_perturbation	-	Script to compute kinematics PI in step perturbation
+run_EMG	-	Script to compute EMG PI 
+run_posturography_unperturbed	-	Script to compute posturographic PI in unperturbed condition
+run_posturography_perturbation	-	Script to compute posturographic PI in perturbation protocols
+run_stepperturbation	-	Script to compute Step perturbation PI
+run_sinusoidalperturbation	-	Script to compute Sinusoidal perturbation PI
+
+
+SPECIFIC FUNCTION
+
+KINEMATICS PI
+kinematic_routine_walking	-	Compute the Mean Range of Motion d Coefficient of Variation when stepping on place protocols have been performed  
+kinematic_routine_perturbation	-	Compute the Range of Motion according to the perturbation direction when step perturbation protocols have been performed
+
+EMG PI
+  EMG_routine	-	Compute the Number of Muscle Synergies when stepping on place protocols have been performed
+
+POSTUROGRAPHIC PI
+posturographic_routine_unperturbed	-	Compute path length (both anterior-posterior and medio-lateral direction) and area of ellipse confidence when stepping or balance protocol have been performed
+posturographic_routine_perturbation	-	Compute path length  and area of ellipse confidence according to the perturbation direction when step or sinusoidal perturbation protocols have been performed
+
+STEP PERTURBATION PI
+step_perturbation	-	Compute overshoot, final platform angular position and range of motion of the platform angle according to the perturbation direction when step perturbation protocols have been performed
+
+SINUSOIDAL PERTURBATION PI
+sinusoidal_perturbation	-	Compute gain ratio and phase shift according to the perturbation direction when sinusoidal perturbation protocols have been performed
+
+
+ADDITIONAL FUNCTION
+appenmirror	-	append the mirrored matrix rows before and after
+eventsnormalize	-	normalize a framed array between given time intervals
+upresample	-	perfrom upresampling of a vector
+
+ADDITIONAL ITEM
+package_install -	package to be installed for function working
+beat_info 	-	help of beat functions
