@@ -15,7 +15,7 @@ function [NoS]=EMG_routine(fileName,PlatformData)
 % $Author: J. TABORRI, v1 - 03/Apr/2020$ (BEAT project)
 
 data=csv2cell(fileName,";"); 
-platformdata=csv2cell(PlatformData, ";")
+platformdata=csv2cell(PlatformData, ";");
 
 time_vector=cell2mat(data(2:end,1)); %%extract time vector from data
 muscle_matrix=cell2mat(data(2:end,2:end)); %%extract muscle matrix from data
@@ -23,8 +23,8 @@ muscle_label=data(1,2:end); %extract muscle label
 muscle_number=size(muscle_label,2);
 time_vector_platform=cell2mat(platformdata(:,1)); %%extract time vector from platformdata
 
-delta_t_muscle=diff(time_vector_data,1);
-fs_muscle=round(1.0/mean(delta_t_angle));
+delta_t_muscle=diff(time_vector,1);
+fs_muscle=round(1.0/mean(delta_t_muscle));
 delta_t_platform=diff(time_vector_platform,1);
 fs_platform=round(1.0/mean(delta_t_platform))
 
@@ -62,49 +62,109 @@ if muscle_matrix_env(i,m)<0
  
 
 
- if(platformdata(1,2)==1 || platformdata(1,2)==2) %% 1 and 2 represent the two stepping protocol
-event=find(platformdata(:,21)==1); %%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform
-else
- fprintf('You have tried to lunch kinematic_routine with a wrong protocol') 
+ if(platformdata{1,2}==1 || platformdata{1,2}==2) %% 1 and 2 represent the two stepping protocol
+event_1r=cell2mat(platformdata(:,21)); %%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
+ event_r=find(event_1r==1); 
+event_1l=cell2mat(platformdata(:,23)); %%23rd column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
+ event_l=find(event_1l==1);
+ else
+ fprintf('You have tried to lunch EMG_routine with a wrong protocol') 
+ return;
 endif
 
+muscle_r=find(~cellfun(@isempty,strfind(muscle_label,'r_')));
+muscle_l=find(~cellfun(@isempty,strfind(muscle_label,'l_')));
 
-for e=1:length(event)-1
-   for m=1:muscle_number
-   muscle_matrix_part(:,m,e)=eventsnormalize(muscle_matrix_env(:,m),[round(event(e)) round(event(e+1))],101); %%normalize the frame within each event before concatening signals
+for e=1:length(event_r)-1
+   for m=1:length(muscle_r)
+   muscle_matrix_part_r(:,m,e)=eventsnormalize(muscle_matrix_env(:,muscle_r(m)),[round(event_r(e)) round(event_r(e+1))],101); %%normalize the frame within each event before concatening signals
  end
 end  
 
-muscle_matrix_conc=muscle_matrix_part(:,:,1);
-for c=2:size(muscle_matrix_part,3)
-  muscle_matrix_conc=cat(1,muscle_matrix_conc,muscle_matrix_part(:,:,c)); %%data to feed the NMF must be the concatation of all data related to each event
+for ee=1:length(event_l)-1
+   for mm=1:length(muscle_l)
+   muscle_matrix_part_l(:,mm,ee)=eventsnormalize(muscle_matrix_env(:,muscle_l(mm)),[round(event_l(ee)) round(event_l(ee+1))],101); %%normalize the frame within each event before concatening signals
+ end
+end  
+
+muscle_matrix_conc_r=muscle_matrix_part_r(:,:,1);
+muscle_matrix_conc_l=muscle_matrix_part_l(:,:,1);
+
+for c=2:size(muscle_matrix_part_r,3)
+  muscle_matrix_conc_r=cat(1,muscle_matrix_conc_r,muscle_matrix_part_r(:,:,c)); %%data to feed the NMF must be the concatation of all data related to each event
 end
 
-for m=1:muscle_number
-musclemax=max(muscle_matrix_conc(:,m));
-for i=1:length(muscle_matrix_conc)
-   muscle_matrix_norm(i,m)= muscle_matrix_conc(i,m)/musclemax; %%obtain a matrix of muscle signals normalized for the maximum amplitude in order to have value from 0 to 1, as requested for application of nnmf
+for c=2:size(muscle_matrix_part_l,3)
+  muscle_matrix_conc_l=cat(1,muscle_matrix_conc_l,muscle_matrix_part_l(:,:,c)); %%data to feed the NMF must be the concatation of all data related to each event
+end
+
+for m=1:length(muscle_r)
+musclemax=max(muscle_matrix_conc_r(:,m));
+for i=1:length(muscle_matrix_conc_r)
+   muscle_matrix_norm_r(i,m)= muscle_matrix_conc_r(i,m)/musclemax; %%obtain a matrix of muscle signals normalized for the maximum amplitude in order to have value from 0 to 1, as requested for application of nnmf
    end
  end
- muscle_matrix_norm=muscle_matrix_norm';
- sy=length(muscle_label); %%maximum number of muscle synergies
+ muscle_matrix_norm_r=muscle_matrix_norm_r';
  
- for s=2:sy
+ for mm=1:length(muscle_l)
+musclemax=max(muscle_matrix_conc_l(:,mm));
+for ii=1:length(muscle_matrix_conc_l)
+   muscle_matrix_norm_l(ii,mm)= muscle_matrix_conc_l(ii,mm)/musclemax; %%obtain a matrix of muscle signals normalized for the maximum amplitude in order to have value from 0 to 1, as requested for application of nnmf
+   end
+ end
+ muscle_matrix_norm_l=muscle_matrix_norm_l';
+ 
+ 
+ 
+ sy_r=length(muscle_r); %%maximum number of muscle synergies
+ sy_l=length(muscle_l); %%maximum number of muscle synergies
+
+ for s=2:sy_r
    sinergia=strcat("Sy",num2str(s));
    
-[W.(sinergia), H.(sinergia),iter,HIS]=nmf_bpas(muscle_matrix_norm,s,'MaxIter', 1000);  %%application of nnmf on EMGmatrix
-muscle_matrix_recons.(sinergia)=W.(sinergia)*H.(sinergia);  %%EMG data reconstructed by NNMF output
-VAF.(sinergia).global=corrcoef(muscle_matrix_norm,muscle_matrix_recons.(sinergia))(1,2)*100; %%compute the global VAF
-   for m=1:muscle_number
-     VAF.(sinergia).local(m)= corr(muscle_matrix_norm(m,:)',muscle_matrix_recons.(sinergia)(m,:)')*100; %%compute the local VAF
+[W.(sinergia), H.(sinergia),iter,HIS]=nmf_bpas(muscle_matrix_norm_r,s,'MaxIter', 1000);  %%application of nnmf on EMGmatrix
+muscle_matrix_recons_r.(sinergia)=W.(sinergia)*H.(sinergia);  %%EMG data reconstructed by NNMF output
+VAF.(sinergia).global=corrcoef(muscle_matrix_norm_r,muscle_matrix_recons_r.(sinergia))(1,2)*100; %%compute the global VAF
+   for m=1:length(muscle_r)
+     VAF.(sinergia).local(m)= corr(muscle_matrix_norm_r(m,:)',muscle_matrix_recons_r.(sinergia)(m,:)')*100; %%compute the local VAF
    end
+   if VAF.(sinergia).global>=90.0 && sum(VAF.(sinergia).local>=0.75)==length(muscle_r)  %%select number of synergies based on threshold criteria and PI
+     NoS_r=s;
+   break
+end
 end
 
-for s=2:sy
-   sinergia=strcat("Sy",num2str(s));
+for ss=2:sy_l
+   sinergia=strcat("Sy",num2str(ss));
    
-   if VAF.(sinergia).global>=90.0 && sum(VAF.(sinergia).local>=0.75)==muscle_number  %%select number of synergies based on threshold criteria and PI
-     NoS=s;
+[W.(sinergia), H.(sinergia),iter,HIS]=nmf_bpas(muscle_matrix_norm_l,ss,'MaxIter', 1000);  %%application of nnmf on EMGmatrix
+muscle_matrix_recons_l.(sinergia)=W.(sinergia)*H.(sinergia);  %%EMG data reconstructed by NNMF output
+VAF.(sinergia).global=corrcoef(muscle_matrix_norm_l,muscle_matrix_recons_l.(sinergia))(1,2)*100; %%compute the global VAF
+   for mm=1:length(muscle_l)
+     VAF.(sinergia).local(mm)= corr(muscle_matrix_norm_l(mm,:)',muscle_matrix_recons_l.(sinergia)(mm,:)')*100; %%compute the local VAF
+   end
+   if VAF.(sinergia).global>=90.0 && sum(VAF.(sinergia).local>=0.75)==length(muscle_l)  %%select number of synergies based on threshold criteria and PI
+     NoS_l=ss;
    break
- end
 end
+end
+
+NoS=cat(2,NoS_r, NoS_l);
+
+
+%%save NoS value in .yaml file
+[aaa, name, extension]=fileparts(PlatformData);
+name2=regexprep(name,'_PlatformData','');
+file_id=fopen(strcat(pwd,"/", name2, "_right_NoS", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: adim' \n");
+NoS_str="value:";
+NoS_str=sprintf("%s%.f",NoS_str,NoS_r);
+fprintf(file_id,NoS_str);
+fclose(file_id)
+
+file_id=fopen(strcat(pwd,"/", name2, "_left_NoS", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: adim' \n");
+NoSl_str="value:";
+NoSl_str=sprintf("%s%.f",NoSl_str,NoS_l);
+fprintf(file_id,NoSl_str);
+fclose(file_id)
