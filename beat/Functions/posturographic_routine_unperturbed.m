@@ -12,24 +12,25 @@ function [PL_p EA_p]=posturographic_routine_unperturbed(PlatformData)
 % $Author: J. TABORRI, v1 - 04/Apr/2020$ (BEAT project)
 
 
-platformdata=csv2cell(PlatformData, ";")
-cop=platformdata(:,18:19)*0.001; %column 18 and 19 contain data of COP extracted from the pressure matrix converted in m
+platformdata=csv2cell(PlatformData, ";");
+cop=cell2mat(platformdata(:,18:19))*0.001; %column 18 and 19 contain data of COP extracted from the pressure matrix converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
 
 %%understand which is the protocol
-if (platformdata(1,2)==2) %%2 represent the stepping protocol with uneven surface
-event=find(platformdata(:,21)==1); 
-a=2;%%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform
- elseif platformdata(1,2)==3 || platformdata(1,2)==4) %%3 and 4 represent protocol of static balance
- a=1;
+if (platformdata{1,2}==2) %%2 represent the stepping protocol with uneven surface
+event_1=cell2mat(platformdata(:,21));
+event=find(event_1==1); %%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform 
+aa=2;%%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform
+elseif (platformdata{1,2}==3 || platformdata{1,2}==4) %%3 and 4 represent protocol of static balance
+ aa=1;
 else
  fprintf('You have tried to lunch posturographic_routine with a wrong protocol') 
 endif
 
-if a=1;
+if aa==1;
 PL_AP=(sqrt(sum(diff(cop(:,1)).^2))); %%path lenght in AP direction 
 PL_ML=(sqrt(sum(diff(cop(:,2)).^2))); %%path lenght in ML direction
-PL=(sqrt(sum((diff(cop(:,1)).^2) + (diff(cop(:,2)).^2))); %%path lenght resultant
+PL=sum(sqrt((diff(cop(:,1)).^2) + (diff(cop(:,2)).^2))); %%path lenght resultant
 %%compute ellipse
 o=mean(cop,1); %%center of the confidence ellipse
 nF=size(cop,1);
@@ -46,7 +47,7 @@ a=sqrt(z*D(1,1));
 b=sqrt(z*D(2,2));
 EA=a*b*pi;  %%ellipse area
 
-else a=2 
+elseif (aa==2) 
  for e=1:length(event)-1
 COP=cop(event(e):event(e+1),:); %%divide COP into the events (perturbations)
 PL_AP(e)=sum(sqrt(diff(COP(:,1)).^2)); %%path lenght in AP direction
@@ -73,5 +74,42 @@ PL_AP=mean(PL_AP,2); %compute mean value across repetitions
 PL_ML=mean(PL_ML,2);
 PL=mean(PL,2);
 EA=mean(EA,2);
+else
+fprintf('You have tried to lunch posturographic_routine with a wrong protocol') 
+endif
 
-end
+
+%%save file
+[aaa, name, extension]=fileparts(PlatformData);
+name2=regexprep(name,'_PlatformData','');
+file_id=fopen(strcat(pwd,"/", name2, "_PL_AP", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: m' \n");
+plap_str="value: ";
+plap_str=sprintf("%s%.3f",plap_str,PL_AP);
+plap_str=sprintf("%s",plap_str);
+fprintf(file_id,plap_str);
+fclose(file_id)
+
+file_id=fopen(strcat(pwd,"/", name2, "_PL_ML", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: m' \n");
+plml_str="value: ";
+plml_str=sprintf("%s%.3f",plml_str,PL_ML);
+plml_str=sprintf("%s",plml_str);
+fprintf(file_id,plml_str);
+fclose(file_id)
+
+file_id=fopen(strcat(pwd,"/", name2, "_PL", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: m' \n");
+pl_str="value: ";
+pl_str=sprintf("%s%.3f",pl_str,PL);
+pl_str=sprintf("%s",pl_str);
+fprintf(file_id,pl_str);
+fclose(file_id)
+
+file_id=fopen(strcat(pwd,"/", name2, "_EA", ".yaml"),'w'); %%open file to write into
+fprintf(file_id, "type: 'scalar' 'measure unit: m^2' \n");
+ea_str="value: ";
+ea_str=sprintf("%s%.6f",ea_str,EA);
+ea_str=sprintf("%s",ea_str);
+fprintf(file_id,ea_str);
+fclose(file_id)
