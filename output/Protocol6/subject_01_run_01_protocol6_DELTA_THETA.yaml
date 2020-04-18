@@ -1,0 +1,3 @@
+type: 'vector' 'measure unit: °' 
+direction: [N, NE, E, SE, S, SW, W, NW];
+value: [66.389, 68.258, 66.032, 66.323, 68.419, 68.162, 66.751, 68.170]
