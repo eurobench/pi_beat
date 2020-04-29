@@ -24,8 +24,6 @@ pkg load linear-algebra
 pkg load signal
 ```
 
-Note that all these installation steps can be run following the `RUN` command of the DockerFile (to be done).
-
 ## Usage
 
 _kinematic_routine_walking_
@@ -33,11 +31,11 @@ _kinematic_routine_walking_
 This routine computes the mean range of motion and the Coefficient of Variation when stepping on place protocols have been performed.
 The script _run_kinematic_walking_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv`.
-PlatformData must be related to the protocol1 or protocol2. 
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+PlatformData must be related to the protocol1 or protocol2.
+Assuming folder `./tests/data/input` contains the needed input data, the shell command is:
 
 ```console
-./run_kinematic_waling ./test_data/input/subject_01_run_01_jointAngles.csv ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_kinematic_walking ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./
 ```
 
 _kinematic_routine_perturbation_

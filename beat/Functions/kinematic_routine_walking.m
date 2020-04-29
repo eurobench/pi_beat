@@ -92,9 +92,7 @@ CoV=cat(2,CoV_i_r,CoV_i_l);
 angle_label2=cat(2,angle_label(angle_r),angle_label(angle_l));
 
 %%save mROM value in .yaml file
-[aaa, name, extension]=fileparts(PlatformData);
-name2=regexprep(name,'_PlatformData','');
-file_id=fopen(strcat(outFolder,"/", name2, "_mROM", ".yaml"),'w'); %%open file to write into
+file_id = fopen(strcat(outFolder, "/pi_mrom.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
 fprintf(file_id, "measure unit: '%%'\n");
 
@@ -121,7 +119,7 @@ fclose(file_id)
 
 
 %%save CoV value in .yaml file
-file_id=fopen(strcat(outFolder,"/", name2, "_CoV", ".yaml"),'w'); %%open file to write into
+file_id=fopen(strcat(outFolder,"/pi_cov.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
 fprintf(file_id, "measure unit: '%%'\n");
 label_str="value: [[";
