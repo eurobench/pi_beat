@@ -94,7 +94,7 @@ angle_label2=cat(2,angle_label(angle_r),angle_label(angle_l));
 %%save mROM value in .yaml file
 file_id = fopen(strcat(outFolder, "/pi_mrom.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '%%'\n");
+fprintf(file_id, "measure unit: '°'\n");
 
 label_str="value: [[";
 for i=1:size(angle_label2,2)
