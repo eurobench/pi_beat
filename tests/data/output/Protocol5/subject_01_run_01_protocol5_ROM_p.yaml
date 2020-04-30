@@ -1,7 +1,7 @@
-type: 'vector' 'measure unit: °' 
+type: 'vector' 
+measure unit: '°' 
 direction_column: [N, NE, E, SE, S, SW, W, NW];
-angle_row: [, , , , , , , , , , , , , , , , , , , , , , , , , , head_tilt];
-r_knee_adduction, r_knee_rotation, r_ankle_flexion, r_ankle_adductionr_ankle_rotation, l_hip_flexion, l_hip_adduction, l_hip_rotation, l_knee_flexion, l_knee_adduction, l_knee_rotation, l_ankle_flexion, l_ankle_adduction, l_ankle_rotation, pelvic_obliquity, pelvic_rotation, pelvic_tilt, thorax_obliquity, thorax_rotation, thorax_tilt, head_obliquity, head_rotation, head_tilt, ];
+angle row: [r_hip_flexion, r_hip_adduction, r_hip_rotation, r_knee_flexion, r_knee_adduction, r_knee_rotation, r_ankle_flexion, r_ankle_adductionr_ankle_rotation, l_hip_flexion, l_hip_adduction, l_hip_rotation, l_knee_flexion, l_knee_adduction, l_knee_rotation, l_ankle_flexion, l_ankle_adduction, l_ankle_rotation, pelvic_obliquity, pelvic_rotation, pelvic_tilt, thorax_obliquity, thorax_rotation, thorax_tilt, head_obliquity, head_rotation, head_tilt, ];
 value: [62.30 5.50 59.50 90.60 59.50 52.20 0.90 65.00;
 46.70 76.00 35.70 6.40 68.70 11.90 11.90 37.50;
 15.60 49.40 37.50 28.40 68.70 59.50 38.50 68.70;

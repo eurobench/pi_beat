@@ -1,4 +1,5 @@
-type: 'vector' 'measure unit: %' 
+type: 'labelled_matrix' 
+measure unit: '%' 
 direction_column: [AP, ML, V];
 angle row: [haed, trunk, pelvis];
 value: [342.09 513.76 1801.89;
