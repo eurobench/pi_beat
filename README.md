@@ -32,10 +32,10 @@ This routine computes the mean range of motion and the Coefficient of Variation 
 The script _run_kinematic_walking_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv`.
 PlatformData must be related to the protocol1 or protocol2.
-Assuming folder `./tests/data/input` contains the needed input data, the shell command is:
+Assuming folder `./tests/data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_kinematic_walking ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./
+./run_kinematic_walking ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _kinematic_routine_perturbation_
@@ -44,10 +44,10 @@ This routine computes the range of motion in different directions of the space w
 The script _run_kinematic_perturbation_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv`.
 PlatformData must be related to the protocol5 or protocol6.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_kinematic_perturbation ./test_data/input/subject_01_run_01_jointAngles.csv ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_kinematic_perturbation ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _EMG_routine_
@@ -56,10 +56,10 @@ This routine computes the muscle synergy number for the right and left side of t
 The script _run_EMG_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide files `emg.csv` and `PlatformData.csv`.
 PlatformData must be related to the protocol1 or protocol2.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_EMG ./test_data/input/subject_01_run_01_emg.csv ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_EMG ./tests/data/input/subject_01_run_01_emg.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _posturographic_routine_unperturbed_
@@ -67,10 +67,10 @@ _posturographic_routine_unperturbed_
 This routine computes the posturographic parameters: path length of the Centre of Pressure (CoP), path length of the CoP in antero-posterior direction, path length of the CoP in medio-lateral direction and the area at 95% of the confidence ellipse when protocols without perturbations have been performed.
 The script _run_posturography_unperturbed_ launches this PI from the shell of a machine with octave installed. To be run, it is mandatory to provide file `PlatformData.csv` file.
 PlatformData must be related to the protocol2, protocol3 or protocol4.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_posturography_unperturbed ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_posturography_unperturbed ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _posturographic_routine_perturbation_
@@ -79,10 +79,10 @@ This routine computes the posturographic parameters: path length of the Centre o
 The script _run_posturography_perturbation_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide file `PlatformData.csv` file.
 PlatformData must be related to the protocol5, protocol6 or protocol7.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_posturography_perturbation ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_posturography_perturbation ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _step_perturbation_
@@ -91,22 +91,22 @@ This routine computes the parameters to quantify the reaction of the subject to 
 The script _run_stepperturbation_ launches this PI from the shell of a machine with octave installed.
 To be run, it is mandatory to provide file `PlatformData.csv`.
 PlatformData must be related to the protocol6.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_stepperturbation ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_stepperturbation ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 _sinusoidal_perturbation_
 
 This routine computes the kinematic parameters to quantify the reaction of the subject to sinusoidal perturbation: gain ratio and shift phase with respect to the imposed sinusoidal wave when sinusoidal perturbation protocol has been performed.
 The script _run_sinusoidalperturbation_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide file `PlatformData.csv` file.
+To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv` file.
 PlatformData must be related to the protocol7.
-Assuming folder `./test_data/input` contains the needed input data, the shell command is:
+Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
 
 ```console
-./run_sinusoidalperturbation ./test_data/input/subject_01_run_01_PlatformData_protocolnumber.csv
+./run_sinusoidalperturbation ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
 ```
 
 ## Build docker image
