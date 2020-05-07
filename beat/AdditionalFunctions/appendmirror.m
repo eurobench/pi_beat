@@ -1,4 +1,4 @@
-helpfunction Am=appendmirror(A)
+function Am=appendmirror(A)
 
 
 l=size(A,1);

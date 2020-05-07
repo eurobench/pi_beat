@@ -1,6 +1,0 @@
-type: 'vector' 'measure unit: %' 
-direction_column: [AP, ML, V];
-angle row: [haed, trunk, pelvis];
-value: [342.09 513.76 1801.89;
-448.64 271.81 679.08;
-161.04 449.99 165.52]

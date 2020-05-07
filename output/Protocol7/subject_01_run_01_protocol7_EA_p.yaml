@@ -1,3 +1,0 @@
-type: 'vector' 'measure unit: m^2' 
-direction: [AP, ML, V, M];
-value: [0.000002, 0.000002, 0.000002, 0.000002]

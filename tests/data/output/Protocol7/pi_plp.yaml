@@ -1,0 +1,4 @@
+type: 'labelled_matrix' 
+measure unit: 'm' 
+value: [['AP', 'ML', 'V', 'M'],
+	[2.497, 1.686, 1.670, 1.409]]
