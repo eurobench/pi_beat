@@ -12,5 +12,8 @@ endif
 
 printf ("platform data: %s\n", arg_list{1});
 
+pkg load io
+pkg load signal
+
 
 [PL_p EA_p]=posturographic_routine_perturbation(arg_list{1},arg_list{2})

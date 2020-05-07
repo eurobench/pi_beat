@@ -27,12 +27,12 @@ fs_angle=round(1.0/mean(delta_t_angle));
 delta_t_platform=diff(time_vector_platform,1);
 fs_platform=round(1.0/mean(delta_t_platform));
 
-if (fs_angle~=fs_platform)   
+if (fs_angle~=fs_platform)
   for a=1:angle_number
     angle_matrix(:,a)=resample(angle_matrix(:,a),fs_platform,fs_angle);  %%make two signals with same sampling frequency
   end
 else
-  fprintf('Same sample frequency') 
+  fprintf('Same sample frequency\n')
 endif
 
 %%angle partitioning
@@ -40,7 +40,8 @@ if(platformdata{1,2}==5 || platformdata {1,2}==6) %% 5 and 6 represent the step 
   dir_1=cell2mat(platformdata(:,20));
   dir=find(diff(dir_1)==1); %%20th column of platformdata contains perturbation direction
 else
-  fprintf('You have tried to lunch kinematic_routine_perturbation with a wrong protocol') 
+  fprintf('You have tried to lunch kinematic_routine_perturbation with a wrong protocol\n')
+  fprintf('Provided protocol: %s \n, only accepts protocols 5 and 6\n')
 endif
 
 for d=1:length(dir)-1
@@ -48,7 +49,7 @@ for d=1:length(dir)-1
     dd=dir(2)-dir(1);
     angle_matrix_part(:,a,d)=eventsnormalize(angle_matrix(:,a),[round(dir(d)) round(dir(d+1))],dd); %%normalize the frames within each direction
   end
-end  
+end
 
 for i=1:size(angle_matrix_part,3)
   for a=1:angle_number
@@ -61,7 +62,7 @@ ROM=permute(ROM,[3,2,1]);
 %%save ROMp value in .yaml file
 file_id=fopen(strcat(outFolder,"/pi_romp.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '°'\n");
+fprintf(file_id, "measure unit: 'ï¿½'\n");
 label_str="value: [[";
 for i=1:size(angle_label,2)
   label_str=sprintf("%s'%s'",label_str,char(angle_label(i)));

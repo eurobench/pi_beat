@@ -12,5 +12,7 @@ endif
 
 printf ("platform data: %s\n", arg_list{1});
 
+pkg load io
+pkg load signal
 
 [OS, theta_f, delta_theta] =step_perturbation(arg_list{1}, arg_list{2})
