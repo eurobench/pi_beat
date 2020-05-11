@@ -24,7 +24,9 @@ if (platformdata{1,2}==2) %%2 represents the stepping protocol with uneven surfa
 elseif (platformdata{1,2}==3 || platformdata{1,2}==4) %%3 and 4 represent protocols of static balance
   aa=1;
 else
-  fprintf('You have tried to lunch posturographic_routine_unperturbed with a wrong protocol') 
+  fprintf('You have tried to lunch posturographic_routine_unperturbed with a wrong protocol\n') 
+  fprintf('Provided protocol: only accepts protocols 2, 3 and 4\n')
+  return;
 endif
 
 if aa==1;

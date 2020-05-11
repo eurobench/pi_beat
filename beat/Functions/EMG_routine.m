@@ -66,7 +66,8 @@ if(platformdata{1,2}==1 || platformdata{1,2}==2) %% 1 and 2 represent the two st
   event_1l=cell2mat(platformdata(:,23)); %%23rd column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
   event_l=find(event_1l==1);
 else
-  fprintf('You have tried to lunch EMG_routine with a wrong protocol') 
+  fprintf('You have tried to lunch EMG_routine with a wrong protocol\n') 
+  fprintf('Provided protocol: only accepts protocols 1 and 2\n')
   return;
 endif
 

@@ -110,7 +110,9 @@ if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
   end
   clear x xx y yy max_sin ix max_ss phase_sin phase_sin_max phase_ss phase_ss_max
 else
- fprintf('You have tried to lunch sinusoidal_routine with a wrong protocol') 
+ fprintf('You have tried to lunch sinusoidal_routine with a wrong protocol\n') 
+ fprintf('Provided protocol: only accepts protocol 7\n')
+ return;
 endif
 
 

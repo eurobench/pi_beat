@@ -24,7 +24,9 @@ if platformdata{1,2} ==6 %%6 represents the step perturbation protocol with unev
   dir_1=cell2mat(platformdata(:,20)); %%20th column of platformdata contains perturbation direction
   dir=find(diff(dir_1)==1);
 else
-  fprintf('You have tried to lunch step_perturbation with a wrong protocol') 
+  fprintf('You have tried to lunch step_perturbation with a wrong protocol\n') 
+  fprintf('Provided protocol: only accepts protocol 6\n')
+  return;
 endif
 
 for d=1:length(dir)-1
