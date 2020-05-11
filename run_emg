@@ -15,5 +15,6 @@ printf ("platform data: %s\n", arg_list{2});
 
 pkg load io
 pkg load signal
+pkg load linear-algebra
 
 [NoS]=EMG_routine(arg_list{1}, arg_list{2}, arg_list{3})
