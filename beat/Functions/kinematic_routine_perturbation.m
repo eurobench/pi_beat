@@ -41,7 +41,7 @@ if(platformdata{1,2}==5 || platformdata {1,2}==6) %% 5 and 6 represent the step 
   dir=find(diff(dir_1)==1); %%20th column of platformdata contains perturbation direction
 else
   fprintf('You have tried to lunch kinematic_routine_perturbation with a wrong protocol\n')
-  fprintf('Provided protocol: only accepts protocols 5 and 6\n')
+  fprintf('Provided protocol: %d, only accepts protocols 5 and 6\n', platformdata{1,2})
   return;
 endif
 

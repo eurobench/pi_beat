@@ -10,9 +10,9 @@ function [G phi]=sinusoidal_perturbation(fileName,PlatformData, outFolder)
 %       - PlatformData is a file containing the data extracted from the platform.
 %	- outFolder: folder path where results should be stored
 % OUTPUT:
-%       - G is the gain ratio between the two signals  to understand how the segment follows the perturbation in terms of amplitude. Fixed dimension: 3x3. 
+%       - G is the gain ratio between the two signals  to understand how the segment follows the perturbation in terms of amplitude. Fixed dimension: 3x3.
 %       - phi is the phase shift between the two signals  to understand how the segment follows the perturbation in terms of phase. dimension: Fixed dimension: 3x3
-%       
+%
 % $Author: J. TABORRI, v1 - 03/Apr/2020$ (BEAT project)
 
 data=csv2cell(fileName,";");
@@ -40,14 +40,14 @@ v1=find(strcmpi(angle_label, 'head_tilt'), 1);
 v2=find(strcmpi(angle_label, 'thorax_tilt'), 1);
 v3=find(strcmpi(angle_label, 'pelvic_tilt'), 1);
 
-if (fs_angle~=fs_platform)   
+if (fs_angle~=fs_platform)
   for a=1:angle_number
    angle_matrix(:,a)=resample(angle_matrix(:,a),fs_platform,fs_angle);  %%make two signals with same sampling frequency
   end
 else
-  fprintf('Same sample frequency') 
+  fprintf('Same sample frequency')
 endif
- 
+
 if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
   interval=cell2mat(platformdata(:,20)); %column 20 contains perturbation direction
 %%compute parameter for antero-posterior direction
@@ -110,8 +110,8 @@ if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
   end
   clear x xx y yy max_sin ix max_ss phase_sin phase_sin_max phase_ss phase_ss_max
 else
- fprintf('You have tried to lunch sinusoidal_routine with a wrong protocol\n') 
- fprintf('Provided protocol: only accepts protocol 7\n')
+ fprintf('You have tried to lunch sinusoidal_routine with a wrong protocol\n')
+ fprintf('Provided protocol %d: only accepts protocol 7\n', platformdata{1,2})
  return;
 endif
 
@@ -141,7 +141,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_phi.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'matrix'\n");
-fprintf(file_id, "measure unit: '°\'\n");
+fprintf(file_id, "measure unit: 'ï¿½\'\n");
 phi_str="value: [";
 for i=1:size(phi_i,1)
   for j=1:size(phi_i,2)

@@ -22,13 +22,13 @@ elseif (platformdata{1,2}==5 || platformdata{1,2}==6) %%5 and 6 represent protoc
   aa=1;
 else
   fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n') 
-  fprintf('Provided protocol: only accepts protocols 5, 6 and 7\n')
+  fprintf('Provided protocol%: only accepts protocols 5, 6 and 7\n', platformdata{1,2})
   return;
 endif
 
 if aa==1;
   for d=1:8 %%number of directions in case of step perturbations
-   COP=cop(direction(:,1)==d,:); 
+   COP=cop(direction(:,1)==d,:);
    PL_i(d)=sum(sqrt((diff(COP(:,1)).^2) + (diff(COP(:,2)).^2))); %%path lenght resultant
    %%compute ellipse
    o(:,:,d)=mean(COP(:,:),1); %%center of the confidence ellipse
