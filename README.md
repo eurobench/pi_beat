@@ -26,6 +26,34 @@ pkg load signal
 
 ## Usage
 
+### Protocol oriented launch
+
+The current enables to score 7 different protocols
+
+* Protocol 1.
+  * run_kinematic_walking
+  * run_emg
+* Protocol 2.
+  * run_kinematic_walking
+  * run_emg
+  * run_posturography_unperturbed
+* Protocol 3.
+  * run_posturography_unperturbed
+* Protocol 4.
+  * run_posturography_unperturbed
+* Protocol 5.
+  * run_kinematic_perturbation
+  * run_posturography_perturbation
+* Protocol 6.
+  * run_kinematic_perturbation
+  * run_posturography_perturbation
+  * run_stepperturbation
+* Protocol 7.
+  * run_posturography_perturbation
+  * run_sinusoidalperturbation
+
+### Performance Indicator launch
+
 _kinematic_routine_walking_
 
 This routine computes the mean range of motion and the Coefficient of Variation when stepping on place protocols have been performed.
