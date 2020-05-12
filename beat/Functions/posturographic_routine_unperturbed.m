@@ -24,11 +24,13 @@ if (platformdata{1,2}==2) %%2 represents the stepping protocol with uneven surfa
 elseif (platformdata{1,2}==3 || platformdata{1,2}==4) %%3 and 4 represent protocols of static balance
   aa=1;
 else
-  fprintf('You have tried to lunch posturographic_routine_unperturbed with a wrong protocol') 
+  fprintf('You have tried to lunch posturographic_routine_unperturbed with a wrong protocol\n')
+  fprintf('Provided protocol %d: only accepts protocols 2, 3 and 4\n', platformdata{1,2})
+  return;
 endif
 
 if aa==1;
-  PL_AP=(sqrt(sum(diff(cop(:,1)).^2))); %%path lenght in AP direction 
+  PL_AP=(sqrt(sum(diff(cop(:,1)).^2))); %%path lenght in AP direction
   PL_ML=(sqrt(sum(diff(cop(:,2)).^2))); %%path lenght in ML direction
   PL=sum(sqrt((diff(cop(:,1)).^2) + (diff(cop(:,2)).^2))); %%path lenght resultant
   %%compute ellipse
@@ -46,7 +48,7 @@ if aa==1;
   a=sqrt(z*D(1,1));
   b=sqrt(z*D(2,2));
   EA=a*b*pi;  %%ellipse area
-elseif (aa==2) 
+elseif (aa==2)
   for e=1:length(event)-1
    COP=cop(event(e):event(e+1),:); %%divide COP into the events (perturbations)
    PL_AP(e)=sum(sqrt(diff(COP(:,1)).^2)); %%path lenght in AP direction
@@ -74,7 +76,7 @@ elseif (aa==2)
   PL=mean(PL,2);
   EA=mean(EA,2);
 else
-  fprintf('You have tried to lunch posturographic_routine with a wrong protocol') 
+  fprintf('You have tried to lunch posturographic_routine with a wrong protocol')
 endif
 
 %%save file

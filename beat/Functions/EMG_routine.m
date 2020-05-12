@@ -46,12 +46,12 @@ for m=1:muscle_number
   muscle_matrix_env(:,m)=filtfilt(b_low,a_low, muscle_matrix_rect(:,m)); %%envelope extraction
 end
 
-if (fs_muscle~=fs_platform) 
+if (fs_muscle~=fs_platform)
   muscle_matrix_env=resample(muscle_matrix_env,fs_platform,fs_muscle);
 else
-  fprintf('Same sample frequency') 
+  fprintf('Same sample frequency')
 end
- 
+
 for m=1:muscle_number
   for i=1:length(muscle_matrix_env)
     if muscle_matrix_env(i,m)<0
@@ -66,7 +66,8 @@ if(platformdata{1,2}==1 || platformdata{1,2}==2) %% 1 and 2 represent the two st
   event_1l=cell2mat(platformdata(:,23)); %%23rd column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
   event_l=find(event_1l==1);
 else
-  fprintf('You have tried to lunch EMG_routine with a wrong protocol') 
+  fprintf('You have tried to lunch EMG_routine with a wrong protocol\n')
+  fprintf('Provided protocol %d: only accepts protocols 1 and 2\n', platformdata{1,2})
   return;
 endif
 
@@ -77,13 +78,13 @@ for e=1:length(event_r)-1
   for m=1:length(muscle_r)
     muscle_matrix_part_r(:,m,e)=eventsnormalize(muscle_matrix_env(:,muscle_r(m)),[round(event_r(e)) round(event_r(e+1))],101); %%normalize the frame within each event before concatening signals
   end
-end  
+end
 
 for ee=1:length(event_l)-1
   for mm=1:length(muscle_l)
     muscle_matrix_part_l(:,mm,ee)=eventsnormalize(muscle_matrix_env(:,muscle_l(mm)),[round(event_l(ee)) round(event_l(ee+1))],101); %%normalize the frame within each event before concatening signals
   end
-end  
+end
 
 muscle_matrix_conc_r=muscle_matrix_part_r(:,:,1);
 muscle_matrix_conc_l=muscle_matrix_part_l(:,:,1);
@@ -103,7 +104,7 @@ for m=1:length(muscle_r)
    end
 end
 muscle_matrix_norm_r=muscle_matrix_norm_r';
- 
+
 for mm=1:length(muscle_l)
   musclemax=max(muscle_matrix_conc_l(:,mm));
    for ii=1:length(muscle_matrix_conc_l)
@@ -111,7 +112,7 @@ for mm=1:length(muscle_l)
    end
 end
 muscle_matrix_norm_l=muscle_matrix_norm_l';
- 
+
 sy_r=length(muscle_r); %%maximum number of muscle synergies
 sy_l=length(muscle_l); %%maximum number of muscle synergies
 
