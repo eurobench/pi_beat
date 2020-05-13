@@ -1,0 +1,20 @@
+#!/usr/bin/octave -qf
+
+%%beat is the folder containing all the functions needed for the BEAT project PI algos
+addpath("beat/Functions")
+addpath("beat/AdditionalFunctions")
+
+arg_list = argv ();
+if nargin != 2
+  printf ("ERROR: Provided %d parameters, but expecting 2\n", nargin)
+  printf ("Usage:\n")
+  printf ("\t run_protocol3 platformData.csv out_folder\n")
+  exit(1)
+endif
+
+printf ("Platform data: %s\n", arg_list{1});
+
+pkg load io
+pkg load signal
+
+posturographic_routine_unperturbed(arg_list{1}, arg_list{2});
