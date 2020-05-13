@@ -11,18 +11,23 @@ function [PL_p EA_p]=posturographic_routine_perturbation(PlatformData, outFolder
 % $Author: J. TABORRI, v1 - 04/Apr/2020$ (BEAT project)
 
 platformdata=csv2cell(PlatformData, ";");
-cop=cell2mat(platformdata(:,18:19))*0.001; %column 18 and 19 contain data of COP extracted from the pressure matrix converted in m
+platformdata_header=platformdata(1,:);
+cx=find(strcmpi(platformdata_header, 'CoP_x'), 1); %% cop x component column
+cy=find(strcmpi(platformdata_header, 'CoP_y'), 1); %% cop y component column
+cop=cell2mat(platformdata(2:end,cx:cy))*0.001; %converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
-direction=cell2mat(platformdata(:,20)); %%column 20 contains the direction of the perturbation
+per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
+direction=cell2mat(platformdata(2:end,per_dir)); 
 
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
 %%understand which is the protocol
-if (platformdata{1,2}==7) %%7 represents the sinusoidal perturbation protocol
+if (platformdata{2,p}==7) %%7 represents the sinusoidal perturbation protocol
   aa=2;
-elseif (platformdata{1,2}==5 || platformdata{1,2}==6) %%5 and 6 represent protocol of step perturbation
+elseif (platformdata{2,p}==5 || platformdata{2,p}==6) %%5 and 6 represent protocol of step perturbation
   aa=1;
 else
   fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n') 
-  fprintf('Provided protocol%: only accepts protocols 5, 6 and 7\n', platformdata{1,2})
+  fprintf('Provided protocol%: only accepts protocols 5, 6 and 7\n', platformdata{2,p})
   return;
 endif
 

@@ -18,12 +18,12 @@ function [NoS_r NoS_l]=EMG_routine(fileName,PlatformData, outFolder)
 
 data=csv2cell(fileName,";");
 platformdata=csv2cell(PlatformData, ";");
-
+platformdata_header=platformdata(1,:);
 time_vector=cell2mat(data(2:end,1)); %%extract time vector from data
 muscle_matrix=cell2mat(data(2:end,2:end)); %%extract muscle matrix from data
 muscle_label=data(1,2:end); %extract muscle label
 muscle_number=size(muscle_label,2);
-time_vector_platform=cell2mat(platformdata(:,1)); %%extract time vector from platformdata
+time_vector_platform=cell2mat(platformdata(2:end,1)); %%extract time vector from platformdata
 
 delta_t_muscle=diff(time_vector,1);
 fs_muscle=round(1.0/mean(delta_t_muscle));
@@ -49,7 +49,7 @@ end
 if (fs_muscle~=fs_platform)
   muscle_matrix_env=resample(muscle_matrix_env,fs_platform,fs_muscle);
 else
-  fprintf('Same sample frequency')
+  fprintf('Same sample frequency\n')
 end
 
 for m=1:muscle_number
@@ -60,14 +60,19 @@ for m=1:muscle_number
   end
 end
 
-if(platformdata{1,2}==1 || platformdata{1,2}==2) %% 1 and 2 represent the two stepping protocol
-  event_1r=cell2mat(platformdata(:,21)); %%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
+er=find(strcmpi(platformdata_header, 'right_stride'), 1); %% right_stride column
+el=find(strcmpi(platformdata_header, 'left_stride'), 1); %%left_stride column
+
+
+if(platformdata{2,p}==1 || platformdata{2,p}==2) %% 1 and 2 represent the two stepping protocol
+  event_1r=cell2mat(platformdata(2:end,er));
   event_r=find(event_1r==1);
-  event_1l=cell2mat(platformdata(:,23)); %%23rd column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform fro right side
+  event_1l=cell2mat(platformdata(2:end,el));
   event_l=find(event_1l==1);
 else
   fprintf('You have tried to lunch EMG_routine with a wrong protocol\n')
-  fprintf('Provided protocol %d: only accepts protocols 1 and 2\n', platformdata{1,2})
+  fprintf('Provided protocol %d: only accepts protocols 1 and 2\n', platformdata{2,p})
   return;
 endif
 

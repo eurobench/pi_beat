@@ -17,11 +17,12 @@ function [G phi]=sinusoidal_perturbation(fileName,PlatformData, outFolder)
 
 data=csv2cell(fileName,";");
 platformdata=csv2cell(PlatformData, ";");
+platformdata_header=platformdata(1,:);
 time_vector_data=cell2mat(data(2:end,1)); %%extract time vector from data
 angle_matrix=cell2mat(data(2:end,2:end)); %%extract angle matrix from data
 angle_label=data(1,2:end); %extract angle label
 angle_number=size(angle_label,2);
-time_vector_platform=cell2mat(platformdata(:,1)); %%extract time vector from platformdata
+time_vector_platform=cell2mat(platformdata(2:end,1)); %%extract time vector from platformdata
 
 delta_t_angle=diff(time_vector_data,1);
 fs_angle=round(1.0/mean(delta_t_angle));
@@ -45,13 +46,17 @@ if (fs_angle~=fs_platform)
    angle_matrix(:,a)=resample(angle_matrix(:,a),fs_platform,fs_angle);  %%make two signals with same sampling frequency
   end
 else
-  fprintf('Same sample frequency')
+  fprintf('Same sample frequency\n')
 endif
 
-if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
-  interval=cell2mat(platformdata(:,20)); %column 20 contains perturbation direction
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
+per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
+
+if platformdata{2,p} ==7 %%  7 represents the sinusoidal perturbation protocol
+  interval=cell2mat(platformdata(2:end,per_dir));
 %%compute parameter for antero-posterior direction
-  sin_ap1=cell2mat(platformdata(:,9));
+  ax=find(strcmpi(platformdata_header, 'alfa'), 1); %% angle in antero-posterior direction column
+  sin_ap1=cell2mat(platformdata(2:end,ax));
   sin_ap=sin_ap1(interval(:,1)==1,1);
   angle_ap=angle_matrix(interval(:,1)==1,[ap1,ap2,ap3]);
    for a=1:size(angle_ap,2)
@@ -71,7 +76,8 @@ if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
    clear x xx y yy max_sin ix max_ss phase_sin phase_sin_max phase_ss phase_ss_max
 
 %%compute parameter for medio-lateral direction
-  sin_ml1=cell2mat(platformdata(:,10));
+  ay=find(strcmpi(platformdata_header, 'beta'), 1); %% angle in medio-lateral direction column
+  sin_ml1=cell2mat(platformdata(2:end,ay));
   sin_ml=sin_ml1(interval(:,1)==2,1);
   angle_ml=angle_matrix(interval(:,1)==2,[ml1,ml2,ml3]);
    for a=1:size(angle_ml,2)
@@ -91,7 +97,8 @@ if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
    clear x xx y yy max_sin ix max_ss phase_sin phase_sin_max phase_ss phase_ss_max
 
 %%compute parameter for vertical direction
-  sin_v1=cell2mat(platformdata(:,11));
+  az=find(strcmpi(platformdata_header, 'gamma'), 1); %% angle in vertical direction column
+  sin_v1=cell2mat(platformdata(2:end,az));
   sin_v=sin_v1(interval(:,1)==3,1);
   angle_v=angle_matrix(interval(:,1)==3,[v1,v2,v3]);
    for a=1:size(angle_v,2)
@@ -111,7 +118,7 @@ if platformdata{1,2} ==7 %%  7 represents the sinusoidal perturbation protocol
   clear x xx y yy max_sin ix max_ss phase_sin phase_sin_max phase_ss phase_ss_max
 else
  fprintf('You have tried to lunch sinusoidal_routine with a wrong protocol\n')
- fprintf('Provided protocol %d: only accepts protocol 7\n', platformdata{1,2})
+ fprintf('Provided protocol %d: only accepts protocol 7\n', platformdata{2,p})
  return;
 endif
 
