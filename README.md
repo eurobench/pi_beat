@@ -37,6 +37,11 @@ The current enables to score 7 different protocols
   * run_kinematic_walking
   * run_emg
   * run_posturography_unperturbed
+
+```shell
+./run_protocol2 tests/data/protocol2/input/jointAngles.csv tests/data/protocol2/input/platformData.csv tests/data/protocol2/input/emg.csv out_tests
+```
+
 * Protocol 3.
   * run_posturography_unperturbed
 
