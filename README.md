@@ -39,8 +39,18 @@ The current enables to score 7 different protocols
   * run_posturography_unperturbed
 * Protocol 3.
   * run_posturography_unperturbed
+
+```shell
+./run_protocol3 tests/data/protocol3/input/platformData.csv out_tests
+```
+
 * Protocol 4.
   * run_posturography_unperturbed
+
+```shell
+./run_protocol4 tests/data/protocol4/input/platformData.csv out_tests
+```
+
 * Protocol 5.
   * run_kinematic_perturbation
   * run_posturography_perturbation
