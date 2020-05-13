@@ -24,7 +24,7 @@ printf("Running kinematic_routine_walking\n")
 kinematic_routine_walking(arg_list{1}, arg_list{2}, arg_list{4})
 
 printf("Running EMG routine\n")
-%EMG_routine(arg_list{3}, arg_list{2}, arg_list{4})
+EMG_routine(arg_list{3}, arg_list{2}, arg_list{4})
 
 printf("Running posturographic_routine_unperturbed\n")
 posturographic_routine_unperturbed(arg_list{2}, arg_list{4});

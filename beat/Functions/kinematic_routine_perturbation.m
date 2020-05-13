@@ -68,7 +68,7 @@ ROM=permute(ROM,[3,2,1]);
 %%save ROMp value in .yaml file
 file_id=fopen(strcat(outFolder,"/pi_romp.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '�'\n");
+fprintf(file_id, "measure_unit: '�'\n");
 label_str="value: [[";
 for i=1:size(angle_label,2)
   label_str=sprintf("%s'%s'",label_str,char(angle_label(i)));

@@ -49,7 +49,7 @@ direction={'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'}; %%direction label
 %save file
 file_id=fopen(strcat(outFolder,"/pi_os.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '�\'\n");
+fprintf(file_id, "measure_unit: '�\'\n");
 label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s '%s'",label_str,char(direction(i)));
@@ -72,7 +72,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_thetaf.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '�\'\n");
+fprintf(file_id, "measure_unit: '�\'\n");
 label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s '%s'",label_str,char(direction(i)));
@@ -95,7 +95,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_deltatheta.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
-fprintf(file_id, "measure unit: '�\'\n");
+fprintf(file_id, "measure_unit: '�\'\n");
 label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s '%s'",label_str,char(direction(i)));
