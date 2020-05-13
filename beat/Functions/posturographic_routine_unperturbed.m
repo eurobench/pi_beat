@@ -13,15 +13,20 @@ function [PL_p EA_p]=posturographic_routine_unperturbed(PlatformData, outFolder)
 % $Author: J. TABORRI, v1 - 04/Apr/2020$ (BEAT project)
 
 platformdata=csv2cell(PlatformData, ";");
-cop=cell2mat(platformdata(:,18:19))*0.001; %columns 18 and 19 contain data of COP extracted from the pressure matrix converted in m
+platformdata_header=platformdata(1,:);
+cx=find(strcmpi(platformdata_header, 'CoP_x'), 1); %% cop x component column
+cy=find(strcmpi(platformdata_header, 'CoP_y'), 1); %% cop y component column
+cop=cell2mat(platformdata(2:end,cx:cy))*0.001; %converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
 
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
+er=find(strcmpi(platformdata_header, 'right_stride'), 1); %%right stride column
 %%understand which is the protocol
-if (platformdata{1,2}==2) %%2 represents the stepping protocol with uneven surface
-  event_1=cell2mat(platformdata(:,21));
-  event=find(event_1==1); %%21st column of platformdata represents the stride identification performed by the pressure matrix embedded in the platform 
+if (platformdata{2,p}==2) %%2 represents the stepping protocol with uneven surface
+  event_1=cell2mat(platformdata(2:end,er));
+  event=find(event_1==1);
   aa=2;
-elseif (platformdata{1,2}==3 || platformdata{1,2}==4) %%3 and 4 represent protocols of static balance
+elseif (platformdata{2,p}==3 || platformdata{p,p}==4) %%3 and 4 represent protocols of static balance
   aa=1;
 else
   fprintf('You have tried to lunch posturographic_routine_unperturbed with a wrong protocol\n')
@@ -77,6 +82,7 @@ elseif (aa==2)
   EA=mean(EA,2);
 else
   fprintf('You have tried to lunch posturographic_routine with a wrong protocol')
+  fprintf('Provided protocol %d: only accepts protocols 2,3 andd 4\n', platformdata{2,p})
 endif
 
 %%save file

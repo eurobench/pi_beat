@@ -16,11 +16,12 @@ function [ROM_p]=kinematic_routine_perturbation(fileName,PlatformData, outFolder
 
 data=csv2cell(fileName,";");
 platformdata=csv2cell(PlatformData, ";");
+platformdata_header=platformdata(1,:);
 time_vector_data=cell2mat(data(2:end,1)); %%extract time vector from data
 angle_matrix=cell2mat(data(2:end,2:end)); %%extract angle matrix from data
 angle_label=data(1,2:end); %extract angle label
 angle_number=size(angle_label,2);
-time_vector_platform=cell2mat(platformdata(:,1)); %%extract time vector from platformdata
+time_vector_platform=cell2mat(platformdata(2:end,1)); %%extract time vector from platformdata
 
 delta_t_angle=diff(time_vector_data,1);
 fs_angle=round(1.0/mean(delta_t_angle));
@@ -35,13 +36,17 @@ else
   fprintf('Same sample frequency\n')
 endif
 
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
+per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation_direction column
+el=find(strcmpi(platformdata_header, 'left_stride'), 1); %%left_stride column
+
 %%angle partitioning
-if(platformdata{1,2}==5 || platformdata {1,2}==6) %% 5 and 6 represent the step perturbation protocols
-  dir_1=cell2mat(platformdata(:,20));
-  dir=find(diff(dir_1)==1); %%20th column of platformdata contains perturbation direction
+if(platformdata{2,p}==5 || platformdata {2,p}==6) %% 5 and 6 represent the step perturbation protocols
+  dir_1=cell2mat(platformdata(2:end,per_dir));
+  dir=find(diff(dir_1)==1);
 else
   fprintf('You have tried to lunch kinematic_routine_perturbation with a wrong protocol\n')
-  fprintf('Provided protocol: %d, only accepts protocols 5 and 6\n', platformdata{1,2})
+  fprintf('Provided protocol: %d, only accepts protocols 5 and 6\n', platformdata{2,p})
   return;
 endif
 

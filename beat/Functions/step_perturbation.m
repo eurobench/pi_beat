@@ -13,19 +13,28 @@ function [OS, theta_f, delta_theta] =step_perturbation(PlatformData,outFolder)
 
 
 platformdata=csv2cell(PlatformData, ";");
-time_vector_platform=cell2mat(platformdata(:,1)); %%extract time vector from platformdata
-platform_angle=cell2mat(platformdata(:,[9,10])); %%column 9 and 10 contain the angle of the platform in x and y direction
-imposed_angle=cell2mat(platformdata(:,22)); %%column 22 contains the value of the imposed perturbation
+platformdata_header=platformdata(1,:);
+time_vector_platform=cell2mat(platformdata(2:end,1)); %%extract time vector from platformdata
+
+ax=find(strcmpi(platformdata_header, 'alfa'), 1); %% angle in x direction (alfa) column
+ay=find(strcmpi(platformdata_header, 'beta'), 1); %% angle in y direction (beta) column
+per_value=find(strcmpi(platformdata_header, 'pert_value'), 1); %% imposed perturbation column
+
+platform_angle=cell2mat(platformdata(2:end,[ax,ay]));
+imposed_angle=cell2mat(platformdata(2:end,per_value));
 delta_t_platform=diff(time_vector_platform,1);
 fs_platform=round(1.0/mean(delta_t_platform));
 t=round(1.5*fs_platform); %variable need to cut the last 1.5 s of the angle for computation of delta_theta
 
-if platformdata{1,2} ==6 %%6 represents the step perturbation protocol with uneven surface
-  dir_1=cell2mat(platformdata(:,20)); %%20th column of platformdata contains perturbation direction
+p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
+per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
+
+if platformdata{2,p} ==6 %%6 represents the step perturbation protocol with uneven surface
+  dir_1=cell2mat(platformdata(2:end,per_dir));
   dir=find(diff(dir_1)==1);
 else
   fprintf('You have tried to lunch step_perturbation with a wrong protocol\n')
-  fprintf('Provided protocol %d: only accepts protocol 6\n', platformdata{1,2})
+  fprintf('Provided protocol %d: only accepts protocol 6\n', platformdata{2,p})
   return;
 endif
 
