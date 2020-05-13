@@ -53,6 +53,11 @@ The current enables to score 7 different protocols
   * run_kinematic_perturbation
   * run_posturography_perturbation
   * run_stepperturbation
+
+```shell
+./run_protocol6 tests/data/protocol6/input/jointAngles.csv tests/data/protocol6/input/platformData.csv out_tests
+```
+
 * Protocol 7.
   * run_posturography_perturbation
   * run_sinusoidalperturbation
