@@ -88,7 +88,7 @@ endif
 %%save file
 file_id=fopen(strcat(outFolder,"/pi_plap.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
-fprintf(file_id, "measure unit: 'm'\n");
+fprintf(file_id, "measure_unit: 'm'\n");
 plap_str="value: ";
 plap_str=sprintf("%s%.3f",plap_str,PL_AP);
 plap_str=sprintf("%s",plap_str);
@@ -97,7 +97,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_plml.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
-fprintf(file_id, "measure unit: 'm'\n");
+fprintf(file_id, "measure_unit: 'm'\n");
 plml_str="value: ";
 plml_str=sprintf("%s%.3f",plml_str,PL_ML);
 plml_str=sprintf("%s",plml_str);
@@ -106,7 +106,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_pl.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
-fprintf(file_id, "measure unit: 'm'\n");
+fprintf(file_id, "measure_unit: 'm'\n");
 pl_str="value: ";
 pl_str=sprintf("%s%.3f",pl_str,PL);
 pl_str=sprintf("%s",pl_str);
@@ -115,7 +115,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_ea.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
-fprintf(file_id, "measure unit: 'm^2'\n");
+fprintf(file_id, "measure_unit: 'm^2'\n");
 ea_str="value: ";
 ea_str=sprintf("%s%.6f",ea_str,EA);
 ea_str=sprintf("%s",ea_str);

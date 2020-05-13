@@ -1,3 +1,3 @@
 type: 'scalar'
-measure unit: 'adim'
+measure_unit: 'adim'
 value: 2

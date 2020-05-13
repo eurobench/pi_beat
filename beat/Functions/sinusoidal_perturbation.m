@@ -129,7 +129,7 @@ phi_i=cat(2,phi_ap',phi_ml',phi_v');
 %save file
 file_id=fopen(strcat(outFolder,"/pi_g.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'matrix'\n");
-fprintf(file_id, "measure unit: '%%'\n");
+fprintf(file_id, "measure_unit: '%%'\n");
 g_str="value: [";
 for i=1:size(G_i,1)
   for j=1:size(G_i,2)
@@ -148,7 +148,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_phi.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'matrix'\n");
-fprintf(file_id, "measure unit: '�\'\n");
+fprintf(file_id, "measure_unit: '�\'\n");
 phi_str="value: [";
 for i=1:size(phi_i,1)
   for j=1:size(phi_i,2)

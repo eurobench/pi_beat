@@ -81,7 +81,7 @@ endif
 %%save file
 file_id=fopen(strcat(outFolder,"/pi_plp.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix\n");
-fprintf(file_id, "measure unit: 'm'\n");
+fprintf(file_id, "measure_unit: 'm'\n");
 label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s '%s'",label_str,char(direction(i)));
@@ -105,7 +105,7 @@ fclose(file_id)
 
 file_id=fopen(strcat(outFolder,"/pi_eap.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix\n");
-fprintf(file_id, "measure unit: 'm^2'\n");
+fprintf(file_id, "measure_unit: 'm^2'\n");
 label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s '%s'",label_str,char(direction(i)));
