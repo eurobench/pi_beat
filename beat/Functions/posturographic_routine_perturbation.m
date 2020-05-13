@@ -26,7 +26,7 @@ if (platformdata{2,p}==7) %%7 represents the sinusoidal perturbation protocol
 elseif (platformdata{2,p}==5 || platformdata{2,p}==6) %%5 and 6 represent protocol of step perturbation
   aa=1;
 else
-  fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n') 
+  fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n')
   fprintf('Provided protocol%: only accepts protocols 5, 6 and 7\n', platformdata{2,p})
   return;
 endif
