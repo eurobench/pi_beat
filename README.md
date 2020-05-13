@@ -62,6 +62,10 @@ The current enables to score 7 different protocols
   * run_posturography_perturbation
   * run_sinusoidalperturbation
 
+```shell
+./run_protocol7 tests/data/protocol7/input/jointAngles.csv tests/data/protocol7/input/platformData.csv out_tests
+```
+
 ### Performance Indicator launch
 
 _kinematic_routine_walking_
