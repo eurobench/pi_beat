@@ -17,7 +17,7 @@ cy=find(strcmpi(platformdata_header, 'CoP_y'), 1); %% cop y component column
 cop=cell2mat(platformdata(2:end,cx:cy))*0.001; %converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
 per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
-direction=cell2mat(platformdata(2:end,per_dir)); 
+direction=cell2mat(platformdata(2:end,per_dir));
 
 p=find(strcmpi(platformdata_header, 'protocol_number'), 1); %%protocol number column
 %%understand which is the protocol
@@ -26,7 +26,7 @@ if (platformdata{2,p}==7) %%7 represents the sinusoidal perturbation protocol
 elseif (platformdata{2,p}==5 || platformdata{2,p}==6) %%5 and 6 represent protocol of step perturbation
   aa=1;
 else
-  fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n') 
+  fprintf('You have tried to lunch posturographic_routine_perturbation with a wrong protocol\n')
   fprintf('Provided protocol%: only accepts protocols 5, 6 and 7\n', platformdata{2,p})
   return;
 endif
@@ -54,9 +54,9 @@ if aa==1;
   endfor
  direction={'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'}; %%direction label in step protocols
 
-else aa==2 
+else aa==2
   for d=1:4 %%number of directions in case of sinusoidal perturbations
-   COP=cop(direction(:,1)==d,:); 
+   COP=cop(direction(:,1)==d,:);
    PL_i(d)=sum(sqrt((diff(COP(:,1)).^2) + (diff(COP(:,2)).^2))); %%path lenght resultant
    %%compute ellipse
    o(:,:,d)=mean(COP(:,:),1); %%center of the confidence ellipse

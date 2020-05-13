@@ -26,88 +26,145 @@ pkg load signal
 
 ## Usage
 
+### Protocol benchmark
+
+The code enables scoring 7 different protocols
+
+* Protocol 1.
+  * run_kinematic_walking
+  * run_emg
+
+```shell
+./run_protocol1 tests/data/protocol1/input/jointAngles.csv tests/data/protocol1/input/platformData.csv tests/data/protocol1/input/emg.csv out_tests
+```
+
+* Protocol 2.
+  * run_kinematic_walking
+  * run_emg
+  * run_posturography_unperturbed
+
+```shell
+./run_protocol2 tests/data/protocol2/input/jointAngles.csv tests/data/protocol2/input/platformData.csv tests/data/protocol2/input/emg.csv out_tests
+```
+
+* Protocol 3.
+  * run_posturography_unperturbed
+
+```shell
+./run_protocol3 tests/data/protocol3/input/platformData.csv out_tests
+```
+
+* Protocol 4.
+  * run_posturography_unperturbed
+
+```shell
+./run_protocol4 tests/data/protocol4/input/platformData.csv out_tests
+```
+
+* Protocol 5.
+  * run_kinematic_perturbation
+  * run_posturography_perturbation
+
+```shell
+./run_protocol5 tests/data/protocol5/input/jointAngles.csv tests/data/protocol5/input/platformData.csv out_tests
+```
+
+* Protocol 6.
+  * run_kinematic_perturbation
+  * run_posturography_perturbation
+  * run_stepperturbation
+
+```shell
+./run_protocol6 tests/data/protocol6/input/jointAngles.csv tests/data/protocol6/input/platformData.csv out_tests
+```
+
+* Protocol 7.
+  * run_posturography_perturbation
+  * run_sinusoidalperturbation
+
+```shell
+./run_protocol7 tests/data/protocol7/input/jointAngles.csv tests/data/protocol7/input/platformData.csv out_tests
+```
+
+### Performance Indicator launch
+
 _kinematic_routine_walking_
 
 This routine computes the mean range of motion and the Coefficient of Variation when stepping on place protocols have been performed.
-The script _run_kinematic_walking_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv`.
-PlatformData must be related to the protocol1 or protocol2.
-Assuming folder `./tests/data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_kinematic_walking ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_kinematic_walking ./tests/data/protocol1/input/jointAngles.csv ./tests/data/protocol1/input/PlatformData.csv ./out_tests
 ```
+
+The script can be launched for the protocol1 or protocol2.
 
 _kinematic_routine_perturbation_
 
 This routine computes the range of motion in different directions of the space when perturbation protocols have been performed.
-The script _run_kinematic_perturbation_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv`.
-PlatformData must be related to the protocol5 or protocol6.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_kinematic_perturbation ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_kinematic_perturbation ./tests/data/protocol5/input/jointAngles.csv ./tests/data/protocol5/input/platformData.csv ./out_tests
 ```
+
+`PlatformData` file must be related to the protocol5 or protocol6.
 
 _EMG_routine_
 
 This routine computes the muscle synergy number for the right and left side of the lower limbs when stepping protocols have been performed.
-The script _run_EMG_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide files `emg.csv` and `PlatformData.csv`.
-PlatformData must be related to the protocol1 or protocol2.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_EMG ./tests/data/input/subject_01_run_01_emg.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_EMG ./tests/data/protocol1/input/emg.csv ./tests/data/protocol1/input/platformData.csv ./out_tests
 ```
+
+`PlatformData` must be related to the protocol1 or protocol2.
 
 _posturographic_routine_unperturbed_
 
 This routine computes the posturographic parameters: path length of the Centre of Pressure (CoP), path length of the CoP in antero-posterior direction, path length of the CoP in medio-lateral direction and the area at 95% of the confidence ellipse when protocols without perturbations have been performed.
-The script _run_posturography_unperturbed_ launches this PI from the shell of a machine with octave installed. To be run, it is mandatory to provide file `PlatformData.csv` file.
-PlatformData must be related to the protocol2, protocol3 or protocol4.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_posturography_unperturbed ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_posturography_unperturbed ./tests/data/protocol2/input/platformData.csv ./out_tests
 ```
+
+`PlatformData` must be related to the protocol2, protocol3 or protocol4.
 
 _posturographic_routine_perturbation_
 
 This routine computes the posturographic parameters: path length of the Centre of Pressure (CoP) and the area at 95% of the confidence ellipse in different space directions when protocols with perturbations have been performed.
-The script _run_posturography_perturbation_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide file `PlatformData.csv` file.
-PlatformData must be related to the protocol5, protocol6 or protocol7.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_posturography_perturbation ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_posturography_perturbation ./tests/data/protocol5/input/platformData.csv ./out_tests
 ```
+
+`platformData` must be related to the protocol5, protocol6 or protocol7.
 
 _step_perturbation_
 
 This routine computes the parameters to quantify the reaction of the subject to step perturbation: overshoot of the platform angle, the final angular position of the platform and the range of the excursion of the platform during the last 1.5 s of the task in each space direction when step perturbation protocol with uneven surface has been performed.
-The script _run_stepperturbation_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide file `PlatformData.csv`.
-PlatformData must be related to the protocol6.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_stepperturbation ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_stepperturbation ./tests/data/protocol6/input/platformData.csv ./out_tests
 ```
+
+`platformData` must be related to protocol6.
 
 _sinusoidal_perturbation_
 
 This routine computes the kinematic parameters to quantify the reaction of the subject to sinusoidal perturbation: gain ratio and shift phase with respect to the imposed sinusoidal wave when sinusoidal perturbation protocol has been performed.
-The script _run_sinusoidalperturbation_ launches this PI from the shell of a machine with octave installed.
-To be run, it is mandatory to provide files `jointAngles.csv` and `PlatformData.csv` file.
-PlatformData must be related to the protocol7.
-Assuming folder `./test_data/input` contains the needed input data and `./tests/data/output` exists and will contain the results, the shell command is:
+Assuming folder `out_tests` exists:
 
 ```console
-./run_sinusoidalperturbation ./tests/data/input/subject_01_run_01_jointAngles.csv ./tests/data/input/subject_01_run_01_PlatformData_protocolnumber.csv ./tests/data/output ./
+./run_sinusoidalperturbation ./tests/data/protocol7/input/jointAngles.csv ./tests/data/protocol7/input/platformData.csv ./out_tests
 ```
+
+`platformData` must be related to protocol7.
+
 
 ## Build docker image
 

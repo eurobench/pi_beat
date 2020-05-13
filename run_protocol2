@@ -1,0 +1,32 @@
+#!/usr/bin/octave -qf
+
+%%beat is the folder containing all the functions needed for the BEAT project PI algos
+addpath("beat/Functions")
+addpath("beat/AdditionalFunctions")
+
+arg_list = argv ();
+if nargin != 4
+  printf ("ERROR: Provided %d parameters, but expecting 4\n", nargin)
+  printf ("Usage:\n")
+  printf ("\t run_protocol2 jointAngle.csv platformData.csv emg.csv out_folder\n")
+  exit(1)
+endif
+
+printf ("csv file: %s\n", arg_list{1});
+printf ("platform data: %s\n", arg_list{2});
+printf ("emg data : %s\n", arg_list{3});
+
+pkg load io
+pkg load signal
+pkg load linear-algebra
+
+printf("Running kinematic_routine_walking\n")
+kinematic_routine_walking(arg_list{1}, arg_list{2}, arg_list{4})
+
+printf("Running EMG routine\n")
+%EMG_routine(arg_list{3}, arg_list{2}, arg_list{4})
+
+printf("Running posturographic_routine_unperturbed\n")
+posturographic_routine_unperturbed(arg_list{2}, arg_list{4});
+
+printf("All Done \n")
