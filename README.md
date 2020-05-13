@@ -165,14 +165,23 @@ Assuming folder `out_tests` exists:
 
 `platformData` must be related to protocol7.
 
-
 ## Build docker image
 
-_to be done (later)_
+_(only tested under linux)_
+
+Run the following command in order to create the docker image for this PI:
+
+```console
+docker build . -t beat_routine
+```
 
 ## Launch the docker image
 
-_to be done (later)_
+Assuming the `tests/protocol1/input` contains the input data, and that the directory `out_tests/` is **already created**, and will contain the PI output:
+
+```shell
+docker run --rm -v $PWD/tests/datat/protocol1/input:/in -v $PWD/out_tests:/out beat_routine ./run_protocol1 /in/jointAngles.csv /in/platformData.csv /in/emg.csv /out
+```
 
 ## Acknowledgements
 
