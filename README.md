@@ -33,6 +33,11 @@ The current enables to score 7 different protocols
 * Protocol 1.
   * run_kinematic_walking
   * run_emg
+
+```shell
+./run_protocol1 tests/data/protocol1/input/jointAngles.csv tests/data/protocol1/input/platformData.csv tests/data/protocol1/input/emg.csv out_tests
+```
+
 * Protocol 2.
   * run_kinematic_walking
   * run_emg
