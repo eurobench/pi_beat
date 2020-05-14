@@ -18,6 +18,7 @@ import logging
 import sys
 import xml.dom.minidom
 
+# Check https://stackoverflow.com/questions/32899/how-do-you-generate-dynamic-parameterized-unit-tests-in-python
 
 class DockerCallTest(unittest.TestCase):
     """gather program tests
@@ -34,10 +35,11 @@ class DockerCallTest(unittest.TestCase):
         self.log.debug("Setting up the test")
 
         self.log.debug("Testing image: {}".format(self.DOCKER_IMAGE))
-        rel_path = os.path.dirname(__file__)
 
+        rel_path = os.path.dirname(__file__)
+        test_folder = os.path.abspath(os.getcwd() + "/" + rel_path)
         ## Read the test plan
-        plan_file = os.path.abspath(os.getcwd() + "/" + rel_path + "/test_plan.xml")
+        plan_file = test_folder + "/test_plan.xml"
         self.log.debug("test plan file: {}".format(plan_file))
 
         plan_xml = xml.dom.minidom.parse(plan_file)
@@ -52,69 +54,78 @@ class DockerCallTest(unittest.TestCase):
             one_test_detail['parameters'] = one_test.getAttribute('parameters')
             one_test_detail['input_folder'] = one_test.getAttribute('input_folder')
             one_test_detail['output_folder'] = one_test.getAttribute('output_folder')
+
+            # putting absolute path in path variables
+            one_test_detail['input_folder'] = test_folder + '/' + one_test_detail['input_folder']
+            one_test_detail['output_folder'] = test_folder + '/' + one_test_detail['output_folder']
+
             test_detail.append(one_test_detail)
 
         self.log.debug("Testing plan: {}".format(test_detail))
 
-        sys.exit()
-        self.input_data_path = os.path.abspath(os.getcwd() + "/" + rel_path + "/data/input")
-
-        self.output_groundtruth_path = os.path.abspath(os.getcwd() + "/" + rel_path + "/data/output")
-
-        self.log.debug("Input data in: {}".format(self.input_data_path))
-
-        self.output_data_path = tempfile.mkdtemp()
-        os.chmod(self.output_data_path, 0o777)
-
-        # preparing the generation command
-        self.command = "docker run --rm -v {}:/in -v {}:/out {} ".format(self.input_data_path,
-                                                                         self.output_data_path,
-                                                                         self.DOCKER_IMAGE)
-
-        self.command += "./run_pi /in/subject_10_trial_01.csv /in/subject_10_anthropometry.yaml /out"
-
-        self.log.debug("Command generated: \n{}".format(self.command))
+        self.test_detail = test_detail
 
     def test_call_docker(self):
         """test the docker component with stored input and output
 
         """
 
-        self.log.info("Launching docker command")
-        # TODO how to catch the result of the command (error or success)
-        os.system(self.command)
+        for i, one_test in enumerate(self.test_detail):
 
-        self.log.info("Docker command launched")
+            msg_test = "test {} on {}".format(i, one_test['pi_name'])
+            with self.subTest(msg=msg_test):
+                self.log.debug("Launching test {}".format(i))
 
-        # check generated files
-        output_files = os.listdir(self.output_data_path)
-        output_files_expected = os.listdir(self.output_groundtruth_path)
+                output_data_path = tempfile.mkdtemp()
+                os.chmod(output_data_path, 0o777)
 
-        self.assertCountEqual(output_files, output_files_expected)
+                # preparing the generation command
+                self.command = "docker run --rm -v {}:/in -v {}:/out {} ".format(one_test['input_folder'],
+                                                                                output_data_path,
+                                                                                self.DOCKER_IMAGE)
 
-        # Check the content of each file
+                self.command += one_test['pi_name'] + ' ' + one_test['parameters']
 
-        for filename in output_files:
-            self.log.debug("comparing file: {}".format(filename))
+                self.log.debug("Command generated: \n{}".format(self.command))
 
-            file_generated = self.output_data_path + "/" + filename
+                self.log.info("Launching docker command")
+                # TODO how to catch the result of the command (error or success)
+                os.system(self.command)
 
-            lines_generated = list()
-            with open(file_generated) as f:
-                for line in f:
-                    lines_generated.append(line)
+                self.log.info("Docker command launched")
 
-            file_groundtruth = self.output_groundtruth_path + "/" + filename
+                # check generated files
+                output_groundtruth_path = one_test['output_folder']
 
-            lines_groundtruth = list()
-            with open(file_groundtruth) as f:
-                for line in f:
-                    lines_groundtruth.append(line)
+                output_files = os.listdir(output_data_path)
+                output_files_expected = os.listdir(output_groundtruth_path)
 
-            # print("Comparing:\n{}\n with \n{}".format(lines_generated, lines_groundtruth))
-            self.assertListEqual(lines_generated, lines_groundtruth)
+                self.assertCountEqual(output_files, output_files_expected, msg="Missing generated files")
 
-        self.log.info("Test completed")
+                # Check the content of each file
+
+                for filename in output_files:
+                    self.log.debug("comparing file: {}".format(filename))
+
+                    file_generated = output_data_path + "/" + filename
+
+                    lines_generated = list()
+                    with open(file_generated) as f:
+                        for line in f:
+                            lines_generated.append(line)
+
+                    file_groundtruth = output_groundtruth_path + "/" + filename
+
+                    lines_groundtruth = list()
+                    with open(file_groundtruth) as f:
+                        for line in f:
+                            lines_groundtruth.append(line)
+
+                    # print("Comparing:\n{}\n with \n{}".format(lines_generated, lines_groundtruth))
+                    self.assertListEqual(lines_generated, lines_groundtruth, msg="File {} differs".format(filename))
+
+                    self.log.info("Test completed")
+        self.log.info("All tests completed")
 
 
 if __name__ == '__main__':
