@@ -1,5 +1,5 @@
-type: 'matrix' 
-measure_unit: '°' 
+type: 'matrix'
+measure_unit: '°'
 value: [180.00 0.00 180.00;
         0.00 180.00 180.00;
         0.00 0.00 180.00]

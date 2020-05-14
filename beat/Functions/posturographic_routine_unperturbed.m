@@ -81,8 +81,9 @@ elseif (aa==2)
   PL=mean(PL,2);
   EA=mean(EA,2);
 else
-  fprintf('You have tried to lunch posturographic_routine with a wrong protocol')
-  fprintf('Provided protocol %d: only accepts protocols 2,3 andd 4\n', platformdata{2,p})
+  fprintf('You have tried to lunch posturographic_routine with a wrong protocol');
+  fprintf('Provided protocol %d: only accepts protocols 2,3 andd 4\n', platformdata{2,p});
+  return;
 endif
 
 %%save file
@@ -91,7 +92,7 @@ fprintf(file_id, "type: 'scalar'\n");
 fprintf(file_id, "measure_unit: 'm'\n");
 plap_str="value: ";
 plap_str=sprintf("%s%.3f",plap_str,PL_AP);
-plap_str=sprintf("%s",plap_str);
+plap_str=sprintf("%s\n",plap_str);
 fprintf(file_id,plap_str);
 fclose(file_id)
 
@@ -100,7 +101,7 @@ fprintf(file_id, "type: 'scalar'\n");
 fprintf(file_id, "measure_unit: 'm'\n");
 plml_str="value: ";
 plml_str=sprintf("%s%.3f",plml_str,PL_ML);
-plml_str=sprintf("%s",plml_str);
+plml_str=sprintf("%s\n",plml_str);
 fprintf(file_id,plml_str);
 fclose(file_id)
 
@@ -109,7 +110,7 @@ fprintf(file_id, "type: 'scalar'\n");
 fprintf(file_id, "measure_unit: 'm'\n");
 pl_str="value: ";
 pl_str=sprintf("%s%.3f",pl_str,PL);
-pl_str=sprintf("%s",pl_str);
+pl_str=sprintf("%s\n",pl_str);
 fprintf(file_id,pl_str);
 fclose(file_id)
 
@@ -118,6 +119,6 @@ fprintf(file_id, "type: 'scalar'\n");
 fprintf(file_id, "measure_unit: 'm^2'\n");
 ea_str="value: ";
 ea_str=sprintf("%s%.6f",ea_str,EA);
-ea_str=sprintf("%s",ea_str);
+ea_str=sprintf("%s\n",ea_str);
 fprintf(file_id,ea_str);
 fclose(file_id)
