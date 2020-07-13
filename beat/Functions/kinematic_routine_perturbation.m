@@ -63,7 +63,7 @@ for i=1:size(angle_matrix_part,3)
   end
 end
 
-ROM=permute(ROM,[3,2,1]);
+ROM_p=permute(ROM,[3,2,1]);
 
 %%save ROMp value in .yaml file
 file_id=fopen(strcat(outFolder,"/pi_romp.yaml"),'w'); %%open file to write into
@@ -79,12 +79,12 @@ endfor
 label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 rom_str="        [";
-for i=1:size(ROM,1)
-  for j=1:size(ROM,2)
-    rom_str=sprintf("%s%.2f",rom_str,ROM(i,j));
-      if j!=size (ROM,2)
+for i=1:size(ROM_p,1)
+  for j=1:size(ROM_p,2)
+    rom_str=sprintf("%s%.2f",rom_str,ROM_p(i,j));
+      if j!=size (ROM_p,2)
         rom_str=sprintf("%s ", rom_str);
-      elseif j==size (ROM,2) && i==size (ROM,1)
+      elseif j==size (ROM_p,2) && i==size (ROM_p,1)
         rom_str=sprintf("%s]]\n",rom_str);
       else
         rom_str=sprintf("%s],\n        [", rom_str);
