@@ -1,4 +1,4 @@
-function [PL_p EA_p]=posturographic_routine_unperturbed(PlatformData, outFolder)
+function [PL PL_AP PL_ML EA]=posturographic_routine_unperturbed(PlatformData, outFolder)
 % posturographic_routine_unperturbed is a function that gives the posturographic parameters related to stepping protocol with uneven surface and static balance protocols.
 %Required Octave pkg: signal, statistics, linear-algebra, geometry
 %[PL PL_AP PL_ML EA]=posturographic_routine_unperturbed(PlatformData,outFolder)

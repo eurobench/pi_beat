@@ -40,9 +40,9 @@ endif
 
 for d=1:length(dir)-1
   angle_platform=acos(cos(platform_angle(dir(d):dir(d+1),1)).*cos(platform_angle(dir(d):dir(d+1),2)))*57.3;
-  OS_i(d)= max(angle_platform)-max(imposed_angle(dir(d):dir(d+1),1)); %%compute overshoot for each direction with respect the imposed perturbation
-  theta_f_i(d)=mean(angle_platform(length(angle_platform)-50:end));
-  delta_theta_i(d)=abs(max(angle_platform(length(angle_platform)-t:end))-min(angle_platform(length(angle_platform)-t:end)));
+  OS(d)= max(angle_platform)-max(imposed_angle(dir(d):dir(d+1),1)); %%compute overshoot for each direction with respect the imposed perturbation
+  theta_f(d)=mean(angle_platform(length(angle_platform)-50:end));
+  delta_theta(d)=abs(max(angle_platform(length(angle_platform)-t:end))-min(angle_platform(length(angle_platform)-t:end)));
 endfor
 direction={'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'}; %%direction label
 
@@ -60,9 +60,9 @@ endfor
 label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 os_str="        [";
-for i=1:length(OS_i)
-  os_str=sprintf("%s%.3f",os_str,OS_i(i));
-  if i!=length(OS_i)
+for i=1:length(OS)
+  os_str=sprintf("%s%.3f",os_str,OS(i));
+  if i!=length(OS)
     os_str=sprintf("%s, ", os_str);
   endif
 endfor
@@ -83,9 +83,9 @@ endfor
 label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 theta_f_str="        [";
-for i=1:length(theta_f_i)
-  theta_f_str=sprintf("%s%.3f",theta_f_str,theta_f_i(i));
-  if i!=length(theta_f_i)
+for i=1:length(theta_f)
+  theta_f_str=sprintf("%s%.3f",theta_f_str,theta_f(i));
+  if i!=length(theta_f)
     theta_f_str=sprintf("%s, ", theta_f_str);
   endif
 endfor
@@ -106,9 +106,9 @@ endfor
 label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 delta_theta_str="        [";
-for i=1:length(delta_theta_i)
-  delta_theta_str=sprintf("%s%.3f",delta_theta_str,delta_theta_i(i));
-  if i!=length(delta_theta_i)
+for i=1:length(delta_theta)
+  delta_theta_str=sprintf("%s%.3f",delta_theta_str,delta_theta(i));
+  if i!=length(delta_theta)
     delta_theta_str=sprintf("%s, ", delta_theta_str);
   endif
 endfor
