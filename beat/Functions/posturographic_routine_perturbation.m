@@ -53,7 +53,6 @@ if aa==1;
    clear COP x y Cxx Cyy Cxy e0 e1 V D W a b
   endfor
  direction={'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'}; %%direction label in step protocols
-
 else aa==2
   for d=1:4 %%number of directions in case of sinusoidal perturbations
    COP=cop(direction(:,1)==d,:);
@@ -101,7 +100,7 @@ for i=1:length(PL_p)
 endfor
 pl_str=sprintf("%s]]\n",pl_str);
 fprintf(file_id,pl_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_eap.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
@@ -125,4 +124,4 @@ for i=1:length(EA_p)
 endfor
 ea_str=sprintf("%s]]\n",ea_str);
 fprintf(file_id,ea_str);
-fclose(file_id)
+fclose(file_id);

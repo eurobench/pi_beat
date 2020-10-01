@@ -115,7 +115,7 @@ for i=1:size(mROM,2)
 endfor
 rom_str=sprintf("%s]]\n",rom_str);
 fprintf(file_id,rom_str);
-fclose(file_id)
+fclose(file_id);
 
 
 %%save CoV value in .yaml file
@@ -140,4 +140,4 @@ for i=1:size(CoV,2)
 endfor
 cov_str=sprintf("%s]]\n",cov_str);
 fprintf(file_id,cov_str);
-fclose(file_id)
+fclose(file_id);

@@ -94,7 +94,7 @@ plap_str="value: ";
 plap_str=sprintf("%s%.3f",plap_str,PL_AP);
 plap_str=sprintf("%s\n",plap_str);
 fprintf(file_id,plap_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_plml.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
@@ -103,7 +103,7 @@ plml_str="value: ";
 plml_str=sprintf("%s%.3f",plml_str,PL_ML);
 plml_str=sprintf("%s\n",plml_str);
 fprintf(file_id,plml_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_pl.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
@@ -112,7 +112,7 @@ pl_str="value: ";
 pl_str=sprintf("%s%.3f",pl_str,PL);
 pl_str=sprintf("%s\n",pl_str);
 fprintf(file_id,pl_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_ea.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'scalar'\n");
@@ -121,4 +121,4 @@ ea_str="value: ";
 ea_str=sprintf("%s%.6f",ea_str,EA);
 ea_str=sprintf("%s\n",ea_str);
 fprintf(file_id,ea_str);
-fclose(file_id)
+fclose(file_id);

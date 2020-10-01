@@ -68,7 +68,7 @@ for i=1:length(OS)
 endfor
 os_str=sprintf("%s]]\n",os_str);
 fprintf(file_id,os_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_thetaf.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
@@ -91,7 +91,7 @@ for i=1:length(theta_f)
 endfor
 theta_f_str=sprintf("%s]]\n",theta_f_str);
 fprintf(file_id,theta_f_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_deltatheta.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'labelled_matrix'\n");
@@ -114,4 +114,4 @@ for i=1:length(delta_theta)
 endfor
 delta_theta_str=sprintf("%s]]\n",delta_theta_str);
 fprintf(file_id,delta_theta_str);
-fclose(file_id)
+fclose(file_id);

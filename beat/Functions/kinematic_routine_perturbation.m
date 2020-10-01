@@ -92,4 +92,4 @@ for i=1:size(ROM_p,1)
   endfor
 endfor
 fprintf(file_id,rom_str);
-fclose(file_id)
+fclose(file_id);

@@ -144,7 +144,7 @@ for i=1:size(G,1)
   endfor
 endfor
 fprintf(file_id,g_str);
-fclose(file_id)
+fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_phi.yaml"),'w'); %%open file to write into
 fprintf(file_id, "type: 'matrix'\n");
@@ -163,7 +163,7 @@ for i=1:size(phi,1)
   endfor
 endfor
 fprintf(file_id,phi_str);
-fclose(file_id)
+fclose(file_id);
 
 
 
