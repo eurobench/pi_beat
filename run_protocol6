@@ -15,7 +15,11 @@ endif
 
 printf ("csv file: %s\n", arg_list{1});
 printf ("platform data: %s\n", arg_list{2});
+printf ("result folder : %s\n", arg_list{3});
 
+if ~exist(arg_list{3}, 'dir')
+  error ("ERROR: folder %s does not exist", arg_list{3});
+endif
 pkg load io
 pkg load signal
 

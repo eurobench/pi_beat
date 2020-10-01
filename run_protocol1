@@ -15,15 +15,20 @@ endif
 printf ("csv file: %s\n", arg_list{1});
 printf ("platform data: %s\n", arg_list{2});
 printf ("emg data : %s\n", arg_list{3});
+printf ("result folder : %s\n", arg_list{4});
+
+if ~exist(arg_list{4}, 'dir')
+  error ("ERROR: folder %s does not exist", arg_list{4});
+endif
 
 pkg load io
 pkg load signal
 pkg load linear-algebra
 
 printf("Running kinematic_routine_walking\n")
-kinematic_routine_walking(arg_list{1}, arg_list{2}, arg_list{4})
+kinematic_routine_walking(arg_list{1}, arg_list{2}, arg_list{4});
 
 printf("Running EMG routine\n")
-EMG_routine(arg_list{3}, arg_list{2}, arg_list{4})
+EMG_routine(arg_list{3}, arg_list{2}, arg_list{4});
 
 printf("All Done \n")

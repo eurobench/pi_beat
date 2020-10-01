@@ -13,8 +13,13 @@ if nargin != 2
 endif
 
 printf ("Platform data: %s\n", arg_list{1});
+printf ("result folder : %s\n", arg_list{2});
 
+if ~exist(arg_list{2}, 'dir')
+  error ("ERROR: folder %s does not exist", arg_list{2});
+endif
 pkg load io
 pkg load signal
 
 posturographic_routine_unperturbed(arg_list{1}, arg_list{2});
+printf("All Done \n")

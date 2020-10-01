@@ -12,12 +12,17 @@ endif
 
 printf ("csv file: %s\n", arg_list{1});
 printf ("platform data: %s\n", arg_list{2});
+printf ("result folder : %s\n", arg_list{3});
+
+if ~exist(arg_list{3}, 'dir')
+  error ("ERROR: folder %s does not exist", arg_list{3});
+endif
 
 pkg load io
 pkg load signal
 
-printf("Running kinematic_routine_perturbation\n")
-kinematic_routine_perturbation(arg_list{1}, arg_list{2}, arg_list{3})
-printf("posturographic_routine_perturbation\n")
-posturographic_routine_perturbation(arg_list{2}, arg_list{3})
-printf("All done\n")
+printf("Running kinematic_routine_perturbation\n");
+kinematic_routine_perturbation(arg_list{1}, arg_list{2}, arg_list{3});
+printf("posturographic_routine_perturbation\n");
+posturographic_routine_perturbation(arg_list{2}, arg_list{3});
+printf("All done\n");
