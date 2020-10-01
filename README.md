@@ -180,7 +180,7 @@ docker build . -t beat_routine
 Assuming the `tests/protocol1/input` contains the input data, and that the directory `out_tests/` is **already created**, and will contain the PI output:
 
 ```shell
-docker run --rm -v $PWD/tests/datat/protocol1/input:/in -v $PWD/out_tests:/out beat_routine ./run_protocol1 /in/jointAngles.csv /in/platformData.csv /in/emg.csv /out
+docker run --rm -v $PWD/tests/data/protocol1/input:/in -v $PWD/out_tests:/out beat_routine ./run_protocol1 /in/jointAngles.csv /in/platformData.csv /in/emg.csv /out
 ```
 
 ## Acknowledgements
