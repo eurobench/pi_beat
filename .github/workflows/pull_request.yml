@@ -26,7 +26,11 @@ jobs:
         REPO_BRANCH: ${{ github.head_ref }}
       run: docker build . --file Dockerfile --tag $REPO_NAME:$REPO_BRANCH
 
+    - name: Get the docker image testing material
+      run:  wget -O test_docker_call.py https://raw.githubusercontent.com/eurobench/docker_test/master/test_docker_call.py
+
     - name: test the docker image
       env:
+        TEST_PLAN: tests/test_plan.xml
         DOCKER_IMAGE: ${{ github.event.repository.name }}:${{ github.head_ref }}
-      run:  python3 tests/test_docker_call.py
+      run:  python3 test_docker_call.py
