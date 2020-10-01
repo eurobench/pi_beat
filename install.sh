@@ -9,6 +9,12 @@ apt-get install -y software-properties-common
 apt-get install -y octave
 apt-get remove -y software-properties-common
 apt-get install -y liboctave-dev
+# specific packages required by the code.
+apt-get install -y octave-io
+apt-get install -y octave-statistics
+apt-get install -y octave-control
+apt-get install -y octave-signal
+apt-get install -y octave-linear-algebra
 
 # cleanup package manager
 apt-get autoclean && apt-get clean
