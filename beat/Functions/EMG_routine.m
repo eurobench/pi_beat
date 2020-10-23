@@ -76,8 +76,8 @@ else
   return;
 endif
 
-muscle_r=find(~cellfun(@isempty,strfind(muscle_label,'r_')));
-muscle_l=find(~cellfun(@isempty,strfind(muscle_label,'l_')));
+muscle_r=find(~cellfun(@isempty,strfind(muscle_label,'_r')));
+muscle_l=find(~cellfun(@isempty,strfind(muscle_label,'_l')));
 
 for e=1:length(event_r)-1
   for m=1:length(muscle_r)
