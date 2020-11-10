@@ -1,4 +1,4 @@
-time;protocol_number;kx;ky;kz;cx;cy;cz;alfa;beta;gamma;Fx;Fy;Fz;Mx;My;Mz;CoP_x;CoP_y;pert_direction;right_stride;pert_value;left_stride
+time;protocol_number;kx;ky;kz;cx;cy;cz;alfa;beta;gamma;force_x;force_y;force_z;torque_x;torque_y;torque_z;cop_x;cop_y;pert_direction;right_stride;pert_value;left_stride
 0;4;0.81031;0.27932;0.56338;0.25743;0.3117;0.14307;0.23097;0.53179;0.86411;0.91853;0.90268;0.56859;0.14846;0.88867;0.11618;0.097105;0.84898;0;0;0;0
 0.01;4;0.35408;0.88769;0.37796;0.10252;0.50739;0.91574;0.28362;0.75533;0.23859;0.32885;0.16174;0.70887;0.44552;0.50873;0.073237;0.38617;0.42257;0;0;0;0
 0.01;4;0.26367;0.76222;0.47058;0.011998;0.064447;0.19587;0.40913;0.48609;0.28864;0.24496;0.87758;0.90764;0.24117;0.16279;0.65415;0.0065785;0.51516;0;0;0;0
