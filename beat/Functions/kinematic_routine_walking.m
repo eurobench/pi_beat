@@ -95,49 +95,49 @@ angle_label2=cat(2,angle_label(angle_r),angle_label(angle_l));
 
 %%save mROM value in .yaml file
 file_id = fopen(strcat(outFolder, "/pi_mrom.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'vector'\n");
 fprintf(file_id, "measure_unit: '°\'\n");
-label_str="value: [[";
+label_str="label: [";
 for i=1:size(angle_label2,2)
   label_str=sprintf("%s'%s'",label_str,char(angle_label2(i)));
   if i!=size (angle_label2,2)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-rom_str="        [";
+rom_str="value: [";
 for i=1:size(mROM,2)
   rom_str=sprintf("%s%.1f",rom_str,mROM(i));
   if i!=size (mROM,2)
     rom_str=sprintf("%s, ", rom_str);
   endif
 endfor
-rom_str=sprintf("%s]]\n",rom_str);
+rom_str=sprintf("%s]\n",rom_str);
 fprintf(file_id,rom_str);
 fclose(file_id);
 
 
 %%save CoV value in .yaml file
 file_id=fopen(strcat(outFolder,"/pi_cov.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'vector'\n");
 fprintf(file_id, "measure_unit: '%%'\n");
-label_str="value: [[";
+label_str="label: [";
 for i=1:size(angle_label2,2)
   label_str=sprintf("%s'%s'",label_str,char(angle_label2(i)));
   if i!=size (angle_label2,2)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-cov_str="        [";
+cov_str="value: [";
 for i=1:size(CoV,2)
   cov_str=sprintf("%s%.1f",cov_str,CoV(i));
   if i!=size (CoV,2)
     cov_str=sprintf("%s, ", cov_str);
   endif
 endfor
-cov_str=sprintf("%s]]\n",cov_str);
+cov_str=sprintf("%s]\n",cov_str);
 fprintf(file_id,cov_str);
 fclose(file_id);

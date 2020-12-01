@@ -1,4 +1,4 @@
-type: 'labelled_matrix'
+type: 'vector'
 measure_unit: 'm'
-value: [['AP', 'ML', 'V', 'M'],
-        [2.497, 1.686, 1.670, 1.409]]
+label: ['AP', 'ML', 'V', 'M']
+value: [2.497, 1.686, 1.670, 1.409]
