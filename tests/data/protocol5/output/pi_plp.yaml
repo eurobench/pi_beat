@@ -1,4 +1,4 @@
-type: 'labelled_matrix'
+type: 'vector'
 measure_unit: 'm'
-value: [['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
-        [0.831, 0.826, 0.840, 0.841, 0.844, 0.831, 0.839, 0.827]]
+label: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+value: [0.831, 0.826, 0.840, 0.841, 0.844, 0.831, 0.839, 0.827]
