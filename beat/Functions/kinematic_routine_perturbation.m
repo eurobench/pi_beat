@@ -76,7 +76,7 @@ for i=1:size(angle_label,2)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
 rom_str="value: [[";
 for i=1:size(ROM_p,1)

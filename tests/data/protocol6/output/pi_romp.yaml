@@ -1,6 +1,6 @@
 type: 'matrix'
 measure_unit: '°'
-col_label: ['r_hip_flexion', 'r_hip_adduction', 'r_hip_rotation', 'r_knee_flexion', 'r_knee_adduction', 'r_knee_rotation', 'r_ankle_flexion', 'r_ankle_adduction', 'r_ankle_rotation', 'l_hip_flexion', 'l_hip_adduction', 'l_hip_rotation', 'l_knee_flexion', 'l_knee_adduction', 'l_knee_rotation', 'l_ankle_flexion', 'l_ankle_adduction', 'l_ankle_rotation', 'pelvic_obliquity', 'pelvic_rotation', 'pelvic_tilt', 'thorax_obliquity', 'thorax_rotation', 'thorax_tilt', 'head_obliquity', 'head_rotation', 'head_tilt'],
+col_label: ['r_hip_flexion', 'r_hip_adduction', 'r_hip_rotation', 'r_knee_flexion', 'r_knee_adduction', 'r_knee_rotation', 'r_ankle_flexion', 'r_ankle_adduction', 'r_ankle_rotation', 'l_hip_flexion', 'l_hip_adduction', 'l_hip_rotation', 'l_knee_flexion', 'l_knee_adduction', 'l_knee_rotation', 'l_ankle_flexion', 'l_ankle_adduction', 'l_ankle_rotation', 'pelvic_obliquity', 'pelvic_rotation', 'pelvic_tilt', 'thorax_obliquity', 'thorax_rotation', 'thorax_tilt', 'head_obliquity', 'head_rotation', 'head_tilt']
 value: [[62.30 46.70 15.60 61.30 24.70 22.90 0.90 30.20 52.20 62.30 46.70 15.60 61.30 24.70 22.90 0.90 30.20 52.20 62.30 46.70 15.60 61.30 24.70 22.90 0.90 30.20 52.20],
         [5.50 76.00 49.40 28.40 45.80 74.20 104.40 15.60 50.40 5.50 76.00 49.40 28.40 45.80 74.20 104.40 15.60 50.40 5.50 76.00 49.40 28.40 45.80 74.20 104.40 15.60 50.40],
         [59.50 35.70 37.50 112.60 43.00 46.70 43.00 77.80 107.10 59.50 35.70 37.50 112.60 43.00 46.70 43.00 77.80 107.10 59.50 35.70 37.50 112.60 43.00 46.70 43.00 77.80 107.10],
