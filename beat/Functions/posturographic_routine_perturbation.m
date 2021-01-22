@@ -12,9 +12,9 @@ function [PL_p EA_p]=posturographic_routine_perturbation(PlatformData, outFolder
 
 platformdata=csv2cell(PlatformData, ";");
 platformdata_header=platformdata(1,:);
-cx=find(strcmpi(platformdata_header, 'cop_x'), 1); %% cop x component column
-cy=find(strcmpi(platformdata_header, 'cop_y'), 1); %% cop y component column
-cop=cell2mat(platformdata(2:end,cx:cy))*0.001; %converted in m
+cx=find(strcmpi(platformdata_header, 'CoP_x'), 1); %% cop x component column
+cy=find(strcmpi(platformdata_header, 'CoP_y'), 1); %% cop y component column
+cop=fillgaps(cell2mat(platformdata(2:end,cx:cy)))*0.001; %converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
 per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
 direction=cell2mat(platformdata(2:end,per_dir));

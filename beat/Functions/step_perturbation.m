@@ -20,8 +20,8 @@ ax=find(strcmpi(platformdata_header, 'alfa'), 1); %% angle in x direction (alfa)
 ay=find(strcmpi(platformdata_header, 'beta'), 1); %% angle in y direction (beta) column
 per_value=find(strcmpi(platformdata_header, 'pert_value'), 1); %% imposed perturbation column
 
-platform_angle=cell2mat(platformdata(2:end,[ax,ay]));
-imposed_angle=cell2mat(platformdata(2:end,per_value));
+platform_angle=fillgaps(cell2mat(platformdata(2:end,[ax,ay])));
+imposed_angle=fillgaps(cell2mat(platformdata(2:end,per_value)));
 delta_t_platform=diff(time_vector_platform,1);
 fs_platform=round(1.0/mean(delta_t_platform));
 t=round(1.5*fs_platform); %variable need to cut the last 1.5 s of the angle for computation of delta_theta
