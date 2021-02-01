@@ -18,7 +18,7 @@ data=csv2cell(fileName,";");
 platformdata=csv2cell(PlatformData, ";");
 platformdata_header=platformdata(1,:);
 time_vector_data=cell2mat(data(2:end,1)); %%extract time vector from data
-angle_matrix=cell2mat(data(2:end,2:end)); %%extract angle matrix from data
+angle_matrix=fillgaps(cell2mat(data(2:end,2:end))); %%extract angle matrix from data
 angle_label=data(1,2:end); %extract angle label
 angle_number=size(angle_label,2);
 time_vector_platform=cell2mat(platformdata(2:end,1)); %%extract time vector from platformdata
@@ -67,18 +67,18 @@ ROM_p=permute(ROM,[3,2,1]);
 
 %%save ROMp value in .yaml file
 file_id=fopen(strcat(outFolder,"/pi_romp.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'matrix'\n");
 fprintf(file_id, "measure_unit: '°'\n");
-label_str="value: [[";
+label_str="col_label: [";
 for i=1:size(angle_label,2)
   label_str=sprintf("%s'%s'",label_str,char(angle_label(i)));
    if i!=size (angle_label,2)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-rom_str="        [";
+rom_str="value: [[";
 for i=1:size(ROM_p,1)
   for j=1:size(ROM_p,2)
     rom_str=sprintf("%s%.2f",rom_str,ROM_p(i,j));

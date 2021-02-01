@@ -1,4 +1,4 @@
-type: 'labelled_matrix'
+type: 'vector'
 measure_unit: '°'
-value: [['r_hip_flexion', 'r_hip_adduction', 'r_hip_rotation', 'r_knee_flexion', 'r_knee_adduction', 'r_knee_rotation', 'r_ankle_flexion', 'r_ankle_adduction', 'r_ankle_rotation', 'l_hip_flexion', 'l_hip_adduction', 'l_hip_rotation', 'l_knee_flexion', 'l_knee_adduction', 'l_knee_rotation', 'l_ankle_flexion', 'l_ankle_adduction', 'l_ankle_rotation'],
-        [61.2, 70.6, 42.3, 40.1, 79.3, 73.3, 46.2, 43.6, 95.4, 61.2, 70.6, 42.3, 40.1, 79.3, 73.3, 46.2, 43.6, 95.4]]
+label: ['r_hip_flexion', 'r_hip_adduction', 'r_hip_rotation', 'r_knee_flexion', 'r_knee_adduction', 'r_knee_rotation', 'r_ankle_flexion', 'r_ankle_adduction', 'r_ankle_rotation', 'l_hip_flexion', 'l_hip_adduction', 'l_hip_rotation', 'l_knee_flexion', 'l_knee_adduction', 'l_knee_rotation', 'l_ankle_flexion', 'l_ankle_adduction', 'l_ankle_rotation']
+value: [61.2, 70.6, 42.3, 40.1, 79.3, 73.3, 46.2, 43.6, 95.4, 61.2, 70.6, 42.3, 40.1, 79.3, 73.3, 46.2, 43.6, 95.4]

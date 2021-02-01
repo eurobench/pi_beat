@@ -20,8 +20,8 @@ ax=find(strcmpi(platformdata_header, 'alfa'), 1); %% angle in x direction (alfa)
 ay=find(strcmpi(platformdata_header, 'beta'), 1); %% angle in y direction (beta) column
 per_value=find(strcmpi(platformdata_header, 'pert_value'), 1); %% imposed perturbation column
 
-platform_angle=cell2mat(platformdata(2:end,[ax,ay]));
-imposed_angle=cell2mat(platformdata(2:end,per_value));
+platform_angle=fillgaps(cell2mat(platformdata(2:end,[ax,ay])));
+imposed_angle=fillgaps(cell2mat(platformdata(2:end,per_value)));
 delta_t_platform=diff(time_vector_platform,1);
 fs_platform=round(1.0/mean(delta_t_platform));
 t=round(1.5*fs_platform); %variable need to cut the last 1.5 s of the angle for computation of delta_theta
@@ -48,70 +48,70 @@ direction={'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'}; %%direction label
 
 %save file
 file_id=fopen(strcat(outFolder,"/pi_os.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'vector'\n");
 fprintf(file_id, "measure_unit: '°\'\n");
-label_str="value: [[";
+label_str="label: [";
 for i=1:length(direction)
   label_str=sprintf("%s'%s'",label_str,char(direction(i)));
   if i!=length(direction)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-os_str="        [";
+os_str="value: [";
 for i=1:length(OS)
   os_str=sprintf("%s%.3f",os_str,OS(i));
   if i!=length(OS)
     os_str=sprintf("%s, ", os_str);
   endif
 endfor
-os_str=sprintf("%s]]\n",os_str);
+os_str=sprintf("%s]\n",os_str);
 fprintf(file_id,os_str);
 fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_thetaf.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'vector'\n");
 fprintf(file_id, "measure_unit: '°'\n");
-label_str="value: [[";
+label_str="label: [";
 for i=1:length(direction)
   label_str=sprintf("%s'%s'",label_str,char(direction(i)));
   if i!=length(direction)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-theta_f_str="        [";
+theta_f_str="value: [";
 for i=1:length(theta_f)
   theta_f_str=sprintf("%s%.3f",theta_f_str,theta_f(i));
   if i!=length(theta_f)
     theta_f_str=sprintf("%s, ", theta_f_str);
   endif
 endfor
-theta_f_str=sprintf("%s]]\n",theta_f_str);
+theta_f_str=sprintf("%s]\n",theta_f_str);
 fprintf(file_id,theta_f_str);
 fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_deltatheta.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'labelled_matrix'\n");
+fprintf(file_id, "type: 'vector'\n");
 fprintf(file_id, "measure_unit: '°'\n");
-label_str="value: [[";
+label_str="label: [";
 for i=1:length(direction)
   label_str=sprintf("%s'%s'",label_str,char(direction(i)));
   if i!=length(direction)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s],\n",label_str);
+label_str=sprintf("%s]\n",label_str);
 fprintf(file_id,label_str);
-delta_theta_str="        [";
+delta_theta_str="value: [";
 for i=1:length(delta_theta)
   delta_theta_str=sprintf("%s%.3f",delta_theta_str,delta_theta(i));
   if i!=length(delta_theta)
     delta_theta_str=sprintf("%s, ", delta_theta_str);
   endif
 endfor
-delta_theta_str=sprintf("%s]]\n",delta_theta_str);
+delta_theta_str=sprintf("%s]\n",delta_theta_str);
 fprintf(file_id,delta_theta_str);
 fclose(file_id);
