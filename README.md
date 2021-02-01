@@ -165,22 +165,11 @@ Assuming folder `out_tests` exists:
 
 `platformData` must be related to protocol7.
 
-## Docker-based code access
+## Build docker image
 
-The following is valid for Linux machines.
-### Get official image
+_(only tested under linux)_
 
-An image ready to be used is available, without downloading that code:
-
-```console
-docker pull eurobenchtest/pi_beat
-```
-
-Now you can jump on the command to launch the docker image.
-
-### Build docker image
-
-Run the following command in order to create the docker image for this testbed, from the repository code:
+Run the following command in order to create the docker image for this PI:
 
 ```console
 docker build . -t beat_routine

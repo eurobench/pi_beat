@@ -12,9 +12,9 @@ function [PL_p EA_p]=posturographic_routine_perturbation(PlatformData, outFolder
 
 platformdata=csv2cell(PlatformData, ";");
 platformdata_header=platformdata(1,:);
-cx=find(strcmpi(platformdata_header, 'CoP_x'), 1); %% cop x component column
-cy=find(strcmpi(platformdata_header, 'CoP_y'), 1); %% cop y component column
-cop=fillgaps(cell2mat(platformdata(2:end,cx:cy)))*0.001; %converted in m
+cx=find(strcmpi(platformdata_header, 'cop_x'), 1); %% cop x component column
+cy=find(strcmpi(platformdata_header, 'cop_y'), 1); %% cop y component column
+cop=cell2mat(platformdata(2:end,cx:cy))*0.001; %converted in m
 z=chi2inv(0.95,2); %%compute the probability associated with 0.95 confidence level (chi distribution)
 per_dir=find(strcmpi(platformdata_header, 'pert_direction'), 1); %% perturbation direction column
 direction=cell2mat(platformdata(2:end,per_dir));
@@ -79,49 +79,49 @@ endif
 
 %%save file
 file_id=fopen(strcat(outFolder,"/pi_plp.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'vector'\n");
+fprintf(file_id, "type: 'labelled_matrix'\n");
 fprintf(file_id, "measure_unit: 'm'\n");
-label_str="label: [";
+label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s'%s'",label_str,char(direction(i)));
   if i!=length(direction)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s]\n",label_str);
+label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 
-pl_str="value: [";
+pl_str="        [";
 for i=1:length(PL_p)
   pl_str=sprintf("%s%.3f",pl_str,PL_p(i));
   if i!=length(PL_p)
     pl_str=sprintf("%s, ", pl_str);
   endif
 endfor
-pl_str=sprintf("%s]\n",pl_str);
+pl_str=sprintf("%s]]\n",pl_str);
 fprintf(file_id,pl_str);
 fclose(file_id);
 
 file_id=fopen(strcat(outFolder,"/pi_eap.yaml"),'w'); %%open file to write into
-fprintf(file_id, "type: 'vector'\n");
+fprintf(file_id, "type: 'labelled_matrix'\n");
 fprintf(file_id, "measure_unit: 'm^2'\n");
-label_str="label: [";
+label_str="value: [[";
 for i=1:length(direction)
   label_str=sprintf("%s'%s'",label_str,char(direction(i)));
   if i!=length(direction)
     label_str=sprintf("%s, ", label_str);
   endif
 endfor
-label_str=sprintf("%s]\n",label_str);
+label_str=sprintf("%s],\n",label_str);
 fprintf(file_id,label_str);
 
-ea_str="value: [";
+ea_str="        [";
 for i=1:length(EA_p)
   ea_str=sprintf("%s%.6f",ea_str,EA_p(i));
   if i!=length(EA_p)
     ea_str=sprintf("%s, ", ea_str);
   endif
 endfor
-ea_str=sprintf("%s]\n",ea_str);
+ea_str=sprintf("%s]]\n",ea_str);
 fprintf(file_id,ea_str);
 fclose(file_id);
